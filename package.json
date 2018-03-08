@@ -22,10 +22,7 @@
     "babel-brunch": "^6.0.6",
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-es2016": "^6.22.0",
-    "babel-preset-stage-3": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
     "brunch": "^2.10.10",
     "sass-brunch": "^2.10.4",
     "vue2-brunch": "^1.0.0"
@@ -37,10 +34,6 @@
     "type": "git",
     "url": "git+https://github.com/plalance/sf3.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/plalance/sf3/issues"
-  },
-  "homepage": "https://github.com/plalance/sf3#readme"
+  "author": "Paul Lalance",
+  "license": "ISC"
 }
