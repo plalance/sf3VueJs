@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    {% if app.user is not empty %}
+    {{ dump(app.user) }}
+    {% endif %}
+    <h2>Page twig</h2>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

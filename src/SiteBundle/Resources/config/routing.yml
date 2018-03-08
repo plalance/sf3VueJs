@@ -1,3 +1,7 @@
+homepage_vue:
+    path:     /vue/
+    defaults: { _controller: SiteBundle:Vue:index }
+
 homepage:
     path:     /
-    defaults: { _controller: SiteBundle:Default:index }
+    defaults: { _controller: SiteBundle:Site:index }

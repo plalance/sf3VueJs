@@ -1,1 +1,1 @@
-console.log("toto");
+$(".button-collapse").sideNav();
