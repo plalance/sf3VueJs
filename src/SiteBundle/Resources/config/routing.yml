@@ -5,3 +5,7 @@ homepage_vue:
 homepage:
     path:     /
     defaults: { _controller: SiteBundle:Site:index }
+
+samples:
+    path:     /samples
+    defaults: { _controller: SiteBundle:Sample:index }

@@ -1,0 +1,47 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    {% if app.user is not empty %}
+        {{ dump(app.user) }}
+    {% endif %}
+    <h2>Tableau</h2>
+    <div class="card" style="margin: 20px auto; padding:20px; max-width: 800px">
+        <table id="admin_table" class="striped highlight">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Label</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in 0..10 %}
+                <tr>
+                    <td><a href="#">0</a></td>
+                    <td>Item {{ i }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="#">show</a>
+                            </li>
+                            <li>
+                                <a href="#">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $(document).ready(function () {
+                $('#admin_table').DataTable();
+                $('select').material_select();
+            });
+        </script>
+    {% endblock %}
