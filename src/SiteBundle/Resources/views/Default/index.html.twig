@@ -1,9 +1,9 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    {% if app.user is not empty %}
-        {{ dump(app.user) }}
-    {% endif %}
+    {#{% if app.user is not empty %}#}
+        {#{{ dump(app.user) }}#}
+    {#{% endif %}#}
     <div id="app">
     </div>
 {% endblock %}
@@ -12,7 +12,8 @@
     {{ parent() }}
     <script>
         const data = {
-            user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}null{% endif %},
+            {#user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}null{% endif %},#}
+            user: null,
             notes: [],
             note: {}
         };
