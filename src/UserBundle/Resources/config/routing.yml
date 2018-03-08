@@ -1,0 +1,7 @@
+api_profile:
+    path:      /api/profile/{user_id}
+    defaults:  { _controller: UserBundle:API\UserApi:infos }
+    requirements:
+        advert_id: \d+
+    options:
+        expose: true

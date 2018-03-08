@@ -1,0 +1,21 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    {% if app.user is not empty %}
+        {{ dump(app.user) }}
+    {% endif %}
+    <div id="app">
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        const data = {
+            user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}null{% endif %},
+            notes: [],
+            note: {}
+        };
+    </script>
+    <script>require('Resources/js/home/home.js');</script>
+{% endblock %}
