@@ -3,25 +3,65 @@
 <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% endblock %}
 </head>
-    <body>
-    {% block header %}
-        <h1>Accueil</h1>
-    {% endblock %}
+<body>
+{% block header %}
+    <ul id="slide-out" class="side-nav">
+        <li>
+            <div class="userView">
+                {#<div class="background">#}
+                {#<img src="{{ asset('/images/interface/side-nav-bg.jpg') }}">#}
+                {#</div>#}
+                <a href="#"><span class="white-text name">Nom</span></a>
+                <a href="#"><span class="white-text email">Email</span></a>
+            </div>
+        </li>
+        <li><a href="{{ path('fos_user_security_logout') }}">
+                Se déconnecter
+            </a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">Navigation</a></li>
+        <li><a href="#"><i class="material-icons">cloud</i>Bâtiments</a></li>
+        {#<li><a href="{{ path('rooms') }}"><i class="material-icons">cloud</i>Pièces</a></li>#}
+        {#<li><a href="{{ path('items') }}"><i class="material-icons">cloud</i>Objets</a></li>#}
+        {#<a class="btn-floating btn-large waves-effect waves-light red"#}
+        {#href="{{ path('fos_user_security_login') }}"><i class="material-icons">perm_identity</i></a>#}
+    </ul>
+    <div class="row">
+        <div class="col s2 center-align">
+            <a class="btn-floating btn-large red darken-3 button-collapse menu" data-activates="slide-out">
+                <i class="material-icons">menu</i>
+            </a>
+        </div>
+        <div class="col s2 offset-s3 center-align">
+            <a class="btn-floating btn-large waves-effect waves-light red darken-3 home" href="{{ path('homepage') }}"><i
+                        class="material-icons ">home</i></a>
+        </div>
+    </div>
+{% endblock %}
 
-    {% block body %}
-    {% endblock %}
+{% block body %}
+{% endblock %}
 
-    {% block javascripts %}
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        {# JS ROUTING FOR VUE TEMPLATES #}
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% block javascripts %}
+    {# JS ROUTING FOR VUE TEMPLATES #}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
-        <script src="{{ asset('js/vendor.js') }}"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
-    {% endblock %}
-    </body>
+    <script src="{{ asset('js/jquery-3.2.0.min.js') }}"></script>
+    <script src="{{ asset('js/materialize.min.js') }}"></script>
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/vendor.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}
+</body>
 </html>
