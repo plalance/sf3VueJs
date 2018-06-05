@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Accueil{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% endblock %}
+    <script src="{{ asset('/js/jquery-3.2.0.min.js') }}"></script>
+    <script src="{{ asset('/js/materialize.min.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<header>
+    {% block header %}
+        <ul id="slide-out" class="side-nav">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li>
+                    <div class="userView">
+                        {#<div class="background">#}
+                            {#<img src="{{ asset('/images/interface/side-nav-bg.jpg') }}">#}
+                        {#</div>#}
+                        {#<a href="#"><img class="circle" src="{{ asset('/images/profile/profile.png') }}"></a>#}
+                        <a href="#"><span class="white-text name">{{ app.user.username }}</span></a>
+                        <a href="#"><span class="white-text email">{{ app.user.email }}</span></a>
+                    </div>
+                </li>
+                <li><a href="{{ path('fos_user_security_logout') }}">
+                        Se déconnecter
+                    </a></li>
+                <li>
+                    <div class="divider"></div>
+                </li>
+                <li><a class="subheader">Activités</a></li>
+                <li><a href="#"><i class="material-icons">cloud</i>Découverte de photos</a></li>
+                {#<li><a href="{{ path("listing_tag") }}"><i class="material-icons">cloud</i>Listing des Tags</a></li>#}
+
+                {#<li><a href="{{ path('my_photos') }}"><i class="material-icons">perm_media</i>Mes albums /#}
+                        {#photos</a></li>#}
+                <li><a class="subheader">Mes actions</a></li>
+                <li><a class="waves-effect" href="{{ path('homepage_vue') }}">Accueil VueJs2</a></li>
+                {#<li><a class="waves-effect" href="{{ path('new_appareil') }}"><i class="material-icons">add</i>Ajouter#}
+                        {#un appareil</a></li>#}
+                {#<li><a class="waves-effect" href="{{ path('new_lens') }}"><i class="material-icons">add</i>Ajouter#}
+                        {#un objectif</a></li>#}
+                {#{% if is_granted('ROLE_ADMIN') %}#}
+                    {#<li><a class="waves-effect" href="{{ path('new_tag') }}"><i class="material-icons">add</i>Ajouter#}
+                            {#un tag</a></li>#}
+                {#{% endif %}#}
+                {#<li><a class="waves-effect" href="{{ path('my_stuff') }}"><i class="material-icons">camera</i>Mon matériel</a></li>#}
+                {#{% endif %}#}
+                {#<li><a class="waves-effect" href="{{ path('fos_user_profile_edit') }}"><i class="material-icons">edit</i>Editer mon profil</a></li>#}
+            {% else %}
+                <a class="btn-floating btn-large waves-effect waves-light red"
+                   href="{{ path('fos_user_security_login') }}"><i class="material-icons">perm_identity</i></a>
+            {% endif %}
+        </ul>
+        <div class="row">
+            <div class="col s2 center-align">
+                <a class="btn-floating btn-large red darken-3 button-collapse menu" data-activates="slide-out">
+                    <i class="material-icons">menu</i>
+                </a>
+            </div>
+            <div class="col s2 offset-s3 center-align">
+                <a class="btn-floating btn-large waves-effect waves-light red darken-3 home" href="{{ path('homepage') }}"><i
+                            class="material-icons ">home</i></a>
+            </div>
+        </div>
+    {% endblock %}
+</header>
+<div class="container">
+    {% block body %}
+    {% endblock %}
+</div>
+<div class="loading-off"></div>
+
+{% block javascripts %}
+    {# JS ROUTING FOR VUE TEMPLATES #}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/vendor.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}
+</body>
+</html>

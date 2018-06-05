@@ -3,7 +3,7 @@
 exports.config = {
     paths: {
         'public': 'web',
-        'watched': ['app/Resources']
+        'watched': ['app/Resources/build']
     },
     conventions: {
         'assets': /^app\/Resources\/assets/
@@ -11,23 +11,36 @@ exports.config = {
     files: {
         javascripts: {
             joinTo: {
-                'js/app.js': /^app/,
-                'js/vendor.js': /^(?!app)/
+                'assets/app.js': /^app/,
+                'assets/vendor.js': /^(?!app)/
             }
         },
         stylesheets: {
-            joinTo: 'css/style.css'
+            joinTo: 'assets/app.css'
         },
         templates: {
-            joinTo: 'js/app.js',
+            joinTo: 'assets/app.js',
         },
     },
     modules: {
         autoRequire: {
-            'js/app.js': ['Resources/js/main.js'],
+            'app.js': ['resources/build/main.js'],
         }
+    },
+    npm: {
+        enabled: true
     },
     plugins: {
         babel: {},
+        sass: {
+            options: {
+                includePaths: ["node_modules/uikit/src/scss"]
+            }
+        },
+        // Globales se déclarent ic ou dans les fichiers js avec import ... from '...'
+        // globals: {
+        //     // $: "jquery",
+        //     // uikit: "uikit",
+        // }
     },
 };

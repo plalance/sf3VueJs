@@ -2,18 +2,24 @@
   "name": "base",
   "version": "1.0.0",
   "description": "base ====",
-  "main": "web/js/app.js",
+  "main": "web/assets/app.js",
   "directories": {
     "test": "tests"
   },
   "dependencies": {
+    "auto-reload-brunch": "^2",
     "axios": "^0.16.2",
+    "chart.js": "^2.7.2",
+    "clean-css-brunch": "^2",
+    "jquery": "^3.3.1",
     "jquery.2": "^1.0.0",
-    "latest-version": "^3.1.0",
     "lodash": "^4.17.4",
+    "uglify-js-brunch": "^2",
+    "uikit": "^3.0.0-rc.2",
     "vue": "^2.4.2",
     "vue-axios": "^2.0.2",
     "vue-loader": "^13.0.4",
+    "vue-lodash": "^2.0.0",
     "vue-router": "^2.7.0",
     "vue-template-compiler": "^2.3.4",
     "vuex": "^2.3.1"
@@ -23,12 +29,15 @@
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "brunch": "^2.10.10",
+    "brunch": "^2",
     "sass-brunch": "^2.10.4",
     "vue2-brunch": "^1.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "brunch watch --server",
+    "build": "brunch build",
+    "debug": "brunch build --debug",
+    "compile": "brunch build -p"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,16 @@
+@import "variables-theme";
+@import "mixins-theme";
+@import "uikit-theme";
+
+@import "dashboard";
+@import "cards";
+@import "loader";
+
+body {
+  overflow: hidden;
+}
+
+#app{
+    overflow: auto;
+    height: 100vh;
+}

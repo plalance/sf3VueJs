@@ -4,8 +4,7 @@
     {#{% if app.user is not empty %}#}
         {#{{ dump(app.user) }}#}
     {#{% endif %}#}
-    <div id="app">
-    </div>
+    <div id="app"></div>
 {% endblock %}
 
 {% block javascripts %}
@@ -17,5 +16,12 @@
             note: {}
         };
     </script>
-    <script>require('Resources/js/home_vue/home.js');</script>
+
+    <script>
+        const datas = {
+            user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}"toto"{% endif %},
+            staticFolder :"{{ asset("") }}"
+        };
+    </script>
+    <script>require('Resources/build/vue/index.js');</script>
 {% endblock %}

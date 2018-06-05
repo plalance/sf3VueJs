@@ -8,6 +8,6 @@ class SiteController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('SiteBundle::index.html.twig');
+        return $this->render('SiteBundle:Site:index.html.twig');
     }
 }
