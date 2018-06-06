@@ -9,19 +9,16 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        const data = {
-            user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}null{% endif %},
-            notes: [],
-            note: {}
-        };
-    </script>
+
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
     <script>
         const datas = {
-            user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}"toto"{% endif %},
+            {#user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}"toto"{% endif %},#}
+            user: {},
             staticFolder :"{{ asset("") }}"
         };
     </script>
+
     <script>require('Resources/build/vue/index.js');</script>
 {% endblock %}

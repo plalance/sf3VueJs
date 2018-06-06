@@ -1,8 +1,10 @@
 import Vue from 'vue';
-import VueLodash from 'vue-lodash';
-import App from './index.vue';
 import axios from "axios";
 import VueAxios from 'vue-axios';
+import VueLodash from 'vue-lodash';
+import App from './index.vue';
+
+window.Vue = Vue;
 
 Vue.use(VueAxios, axios, VueLodash);
 

@@ -1,9 +1,28 @@
 <template>
     <div class="uk-offcanvas-content" id="app">
         <Loader :state="state"></Loader>
-        <!--HEADER-->
-        <!--/HEADER-->
-        <!-- CONTENT -->
+
+        <h1 v-if="!user.id">Aucun User connecté</h1>
+        <div v-else="">
+            <h1>{{ user.username }}</h1>
+            <p>Email : {{ user.email }}</p>
+            <p>Roles : {{ user.roles }}</p>
+            <p>Activé : {{ user.enabled ? 'Activé' : 'Non Activé' }}</p>
+        </div>
+
+        <form class="uk-form">
+
+            <fieldset data-uk-margin>
+                <legend>Se connecter en tant que :</legend>
+                <select v-model="userId" @change="loadUser()">
+                    <option :value="1">Se connecter avec Paul</option>
+                    <option :value="2">Se connecter avec Astérix</option>
+                </select>
+            </fieldset>
+
+        </form>
+
+        <h1>User connecté :</h1>
         <div id="content" data-uk-height-viewport="expand: true">
             <div class="uk-container uk-container-expand">
                 <div class="uk-grid uk-grid-divider uk-grid-medium uk-child-width-1-2 uk-child-width-1-4@l uk-child-width-1-5@xl"
@@ -225,7 +244,7 @@
 <script>
     import Chart from 'chart.js';
     import Gmap from './components/google-map';
-    import Loader from './components/loader'
+    import Loader from './components/loader';
 
     export default {
         name: 'app',
@@ -264,7 +283,8 @@
                     latitude: 47.6425875,
                     longitude: 6.844186600000057
                 }],
-                state : true,
+                state: true,
+                userId: 0
             }
         },
         created() {
@@ -275,7 +295,7 @@
         computed: {
             getDatas() {
                 return JSON.parse(this.chartText);
-            },
+            }
         },
         beforeMount() {
             this.chartText = JSON.stringify(this.dataChart);
@@ -289,7 +309,7 @@
                 options: {}
             });
             window.setTimeout(function () {
-                this.state =  false;
+                this.state = false;
             }.bind(this), 500);
         },
         watch: {
@@ -299,7 +319,30 @@
                 this.myDoughnutChart.update();
             }
         },
-        methods: {}
+        methods: {
+            loadScreen(bool){
+                this.$set(this, 'state', bool);
+            },
+            loadUser(){
+                this.loadScreen(true);
+                let that = this;
+                let params = {
+                    params: {
+                        'user_id': this.userId
+                    }
+                };
+
+                console.log(this.userId);
+                Vue.axios.get(Routing.generate('api_profile') + '/' + this.userId, params).then(function (response) {
+                    console.log(response.data);
+                    that.$set(that, 'user', JSON.parse(response.data));
+                }).catch(function (error) {
+                    console.log(error);
+                }).then(function () {
+                    that.loadScreen(false);
+                });
+            }
+        }
     }
 </script>
 

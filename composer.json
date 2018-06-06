@@ -51,7 +51,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "php bin/console assets:install --symlink web"
         ],
         "post-update-cmd": [
             "@symfony-scripts"
