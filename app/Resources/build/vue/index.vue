@@ -10,6 +10,7 @@
             <p>Activé : {{ user.enabled ? 'Activé' : 'Non Activé' }}</p>
             <input type="text" v-model="notification_content">
             <button @click="notifyAdmin()">Envoyer un mail de notification</button>
+            <button @click="logout()">Se déconnecter</button>
         </div>
 
         <form class="uk-form">
@@ -357,6 +358,19 @@
                 Vue.axios.get(url, params).then(function (response) {
                     console.log(response);
                     that.$set(that, 'users', JSON.parse(response.data));
+                }).catch(function (error) {
+                    console.log(error);
+                })
+            },
+            logout(){
+                let that = this;
+                let params = {};
+                let url = Routing.generate('api_user_logout');
+                Vue.axios.get(url, params).then(function (response) {
+                    console.log(response);
+                    if (response.data === "disconnected"){
+                        that.$set(that, 'user', {});
+                    }
                 }).catch(function (error) {
                     console.log(error);
                 })
