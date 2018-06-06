@@ -301,7 +301,7 @@
             this.chartText = JSON.stringify(this.dataChart);
         },
         mounted() {
-            // let url = $.get(Routing.generate('example', {'user_id': 1}));
+            // let url = Routing.generate('example', {'user_id': 1});
             let ctx = document.getElementById("myChart");
             this.myDoughnutChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -327,13 +327,12 @@
                 this.loadScreen(true);
                 let that = this;
                 let params = {
-                    params: {
-                        'user_id': this.userId
-                    }
+                    // params: {
+                    //     'user_id': this.userId
+                    // }
                 };
-
-                console.log(this.userId);
-                Vue.axios.get(Routing.generate('api_profile') + '/' + this.userId, params).then(function (response) {
+                let url = Routing.generate('api_profile', {'user_id': this.userId});
+                Vue.axios.get(url, params).then(function (response) {
                     console.log(response.data);
                     that.$set(that, 'user', JSON.parse(response.data));
                 }).catch(function (error) {

@@ -22,10 +22,10 @@
         watch: {
             state: function () {
                 if (this.state === true) {
-                    console.log("caché !");
+                    // Caché !
                     document.body.classList.add("loading");
                 } else {
-                    console.log("montré");
+                    // Montré !
                     document.body.classList.remove("loading");
                 }
             }
