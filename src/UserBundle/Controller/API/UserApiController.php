@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use UserBundle\Entity\User;
 
 class UserApiController extends Controller
@@ -31,5 +33,35 @@ class UserApiController extends Controller
         }
         $serializer = $this->get('jms_serializer');
         return $this->json($response);
+    }
+
+    public function listAction(){
+        $users = $this->getDoctrine()
+            ->getRepository('UserBundle:User')
+            ->findBy(array(), array('username' => 'desc'));
+
+        $serializer = $this->get('jms_serializer');
+        return $this->json($serializer->serialize($users, "json"));
+    }
+
+    /**
+     * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
+     */
+    public function usurpateAction(Request $request, User $user){
+
+        if (!$user) {
+            throw $this->createNotFoundException('No user found');
+        }
+
+        $token = new UsernamePasswordToken($user, $user->getPassword(), 'main', $user->getRoles());
+        $this->get('security.token_storage')->setToken($token);
+
+        $this->get('session')->set('_security_main', serialize($token));
+
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+        $serializer = $this->get('jms_serializer');
+        return $this->json($serializer->serialize($user, "json"));
     }
 }

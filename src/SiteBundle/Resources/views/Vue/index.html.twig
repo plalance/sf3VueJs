@@ -14,8 +14,7 @@
 
     <script>
         const datas = {
-            {#user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}"toto"{% endif %},#}
-            user: {},
+            user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}{}{% endif %},
             staticFolder :"{{ asset("") }}"
         };
     </script>

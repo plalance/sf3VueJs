@@ -6,10 +6,24 @@ api_profile:
     options:
         expose: true
 
+api_user_usurpate:
+    path:      /api/user/{user_id}/usurpate
+    defaults:  { _controller: UserBundle:API\UserApi:usurpate }
+    requirements:
+        user_id: \d+
+    options:
+        expose: true
+
 api_profile_notify:
     path:      /api/profile/notify/{user_id}/
     defaults:  { _controller: UserBundle:API\UserApi:notifyAdmin }
     requirements:
         user_id: \d+
+    options:
+        expose: true
+
+api_users_list:
+    path:      /api/users/list
+    defaults:  { _controller: UserBundle:API\UserApi:list }
     options:
         expose: true

@@ -16,9 +16,8 @@
 
             <fieldset data-uk-margin>
                 <legend>Se connecter en tant que :</legend>
-                <select v-model="userId" @change="loadUser()">
-                    <option :value="1">Se connecter avec Paul</option>
-                    <option :value="2">Se connecter avec Astérix</option>
+                <select v-model="userId" @change="usurpateUser()">
+                    <option v-for="user in users" :value="user.id">Se connecter avec {{ user.username }}</option>
                 </select>
             </fieldset>
 
@@ -254,6 +253,7 @@
         data: function () {
             return {
                 user: {},
+                users : [],
                 notification_content : "",
                 staticFolder: "",
                 chartText: "",
@@ -294,6 +294,8 @@
             let datas = this.$root.$data;
             this.user = datas.user;
             this.staticFolder = datas.staticFolder;
+
+            this.loadUsers();
         },
         computed: {
             getDatas() {
@@ -304,6 +306,10 @@
             this.chartText = JSON.stringify(this.dataChart);
         },
         mounted() {
+            // user déjà en session (app.user) => On set son id pour le userId du select
+            if (this.user.id){
+                this.$set(this, 'userId', this.user.id);
+            }
             // let url = Routing.generate('example', {'user_id': 1});
             let ctx = document.getElementById("myChart");
             this.myDoughnutChart = new Chart(ctx, {
@@ -326,7 +332,7 @@
             loadScreen(bool){
                 this.$set(this, 'state', bool);
             },
-            loadUser(){
+            usurpateUser(){
                 this.loadScreen(true);
                 let that = this;
                 let params = {
@@ -334,7 +340,7 @@
                     //     'user_id': this.userId
                     // }
                 };
-                let url = Routing.generate('api_profile', {'user_id': this.userId});
+                let url = Routing.generate('api_user_usurpate', {'user_id': this.userId});
                 Vue.axios.get(url, params).then(function (response) {
                     console.log(response.data);
                     that.$set(that, 'user', JSON.parse(response.data));
@@ -343,6 +349,17 @@
                 }).then(function () {
                     that.loadScreen(false);
                 });
+            },
+            loadUsers(){
+                let that = this;
+                let params = {};
+                let url = Routing.generate('api_users_list');
+                Vue.axios.get(url, params).then(function (response) {
+                    console.log(response);
+                    that.$set(that, 'users', JSON.parse(response.data));
+                }).catch(function (error) {
+                    console.log(error);
+                })
             },
             notifyAdmin(){
                 this.loadScreen(true);

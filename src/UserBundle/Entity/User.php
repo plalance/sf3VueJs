@@ -57,7 +57,7 @@ class User extends BaseUser
         error_reporting( E_ALL );
         $from = "test@votredomaine.com";
         $to = "lalance.paul@gmail.com";
-        $subject = "Message de l'administrateur :".$this->getUsername();
+        $subject = "Message de l'administrateur";
         $message = "Cher ".$this->getUsername().", <br>".$content;
         $headers = "From:" . $from;
         mail($to,$subject,$message, $headers);
