@@ -6,6 +6,12 @@ api_profile:
     options:
         expose: true
 
+api_user_logout:
+    path:      /api/logout
+    defaults:  { _controller: UserBundle:API\UserApi:logout }
+    options:
+        expose: true
+
 api_user_usurpate:
     path:      /api/user/{user_id}/usurpate
     defaults:  { _controller: UserBundle:API\UserApi:usurpate }

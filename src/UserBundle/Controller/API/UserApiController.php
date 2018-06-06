@@ -6,8 +6,10 @@ use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use UserBundle\Entity\User;
@@ -63,5 +65,27 @@ class UserApiController extends Controller
 
         $serializer = $this->get('jms_serializer');
         return $this->json($serializer->serialize($user, "json"));
+    }
+
+    public function logoutAction(Request $request){
+
+        $token = new AnonymousToken('main', 'anon.');
+
+        $this->get('security.token_storage')->setToken(null);
+        $request->getSession()->invalidate();
+
+        $response = new RedirectResponse($this->generateUrl('homepage_vue', array(
+            'token' => $token
+        )));
+
+//        // Clearing the cookies.
+//        $cookieNames = [
+//            $this->container->getParameter('session.name'),
+//            $this->container->getParameter('session.remember_me.name'),
+//        ];
+//        foreach ($cookieNames as $cookieName) {
+//            $response->headers->clearCookie($cookieName);
+//        }
+        return $this->json("disconnected");
     }
 }
