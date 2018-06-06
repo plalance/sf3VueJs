@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="users")
  */
 class User extends BaseUser
 {
