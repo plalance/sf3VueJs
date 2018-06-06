@@ -2,6 +2,14 @@ api_profile:
     path:      /api/profile/{user_id}
     defaults:  { _controller: UserBundle:API\UserApi:infos }
     requirements:
-        advert_id: \d+
+        user_id: \d+
+    options:
+        expose: true
+
+api_profile_notify:
+    path:      /api/profile/notify/{user_id}/
+    defaults:  { _controller: UserBundle:API\UserApi:notifyAdmin }
+    requirements:
+        user_id: \d+
     options:
         expose: true

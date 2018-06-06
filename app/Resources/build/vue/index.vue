@@ -8,6 +8,8 @@
             <p>Email : {{ user.email }}</p>
             <p>Roles : {{ user.roles }}</p>
             <p>Activé : {{ user.enabled ? 'Activé' : 'Non Activé' }}</p>
+            <input type="text" v-model="notification_content">
+            <button @click="notifyAdmin()">Envoyer un mail de notification</button>
         </div>
 
         <form class="uk-form">
@@ -101,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="uk-card-body">
-                                <img :src="staticFolder + 'img/mapa1.svg'" alt="">
+                                <img :src="staticFolder + 'images/mapa1.svg'" alt="">
                                 <p class="uk-text-muted uk-text-small uk-text-center">Lorem ipsum dolor sit amet,
                                     consectetur adipiscing elit.</p>
                             </div>
@@ -150,7 +152,7 @@
                                 </div>
                             </div>
                             <div class="uk-card-body">
-                                <img :src="staticFolder + 'img/mapa3.svg'" alt="">
+                                <img :src="staticFolder + 'images/mapa3.svg'" alt="">
                                 <p class="uk-text-muted uk-text-small uk-text-center">Lorem ipsum dolor sit amet,
                                     consectetur adipiscing elit.</p>
                             </div>
@@ -194,7 +196,7 @@
                                 </div>
                             </div>
                             <div class="uk-card-body">
-                                <img :src="staticFolder + 'img/mapa4.svg'" alt="">
+                                <img :src="staticFolder + 'images/mapa4.svg'" alt="">
                                 <p class="uk-text-muted uk-text-small uk-text-center">Lorem ipsum dolor sit amet,
                                     consectetur adipiscing elit.</p>
                             </div>
@@ -252,6 +254,7 @@
         data: function () {
             return {
                 user: {},
+                notification_content : "",
                 staticFolder: "",
                 chartText: "",
                 myDoughnutChart: {},
@@ -335,6 +338,26 @@
                 Vue.axios.get(url, params).then(function (response) {
                     console.log(response.data);
                     that.$set(that, 'user', JSON.parse(response.data));
+                }).catch(function (error) {
+                    console.log(error);
+                }).then(function () {
+                    that.loadScreen(false);
+                });
+            },
+            notifyAdmin(){
+                this.loadScreen(true);
+                let that = this;
+                let params = {
+                    params: {
+                        'user_id': this.userId,
+                        'method': "email",
+                        "content": this.notification_content
+                    }
+                };
+                let url = Routing.generate('api_profile_notify', {'user_id': this.userId});
+                console.log(url);
+                Vue.axios.get(url, params).then(function (response) {
+                    console.log(response);
                 }).catch(function (error) {
                     console.log(error);
                 }).then(function () {

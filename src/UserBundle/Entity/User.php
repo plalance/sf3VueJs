@@ -52,6 +52,17 @@ class User extends BaseUser
      */
     protected $roles;
 
+    public function sendNotificationByEmail($content){
+        ini_set( 'display_errors', 1 );
+        error_reporting( E_ALL );
+        $from = "test@votredomaine.com";
+        $to = "lalance.paul@gmail.com";
+        $subject = "Message de l'administrateur :".$this->getUsername();
+        $message = "Cher ".$this->getUsername().", <br>".$content;
+        $headers = "From:" . $from;
+        mail($to,$subject,$message, $headers);
+    }
+
     public function __construct()
     {
         parent::__construct();
