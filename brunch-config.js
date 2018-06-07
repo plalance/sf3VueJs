@@ -47,10 +47,6 @@ exports.config = {
         },
         postcss: {
             modules: true,
-            processors: [
-                require('autoprefixer')(['last 8 versions']),
-                require('csswring')()
-            ]
         }
         // Globales se déclarent ic ou dans les fichiers js avec import ... from '...'
         // globals: {
