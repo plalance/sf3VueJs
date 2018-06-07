@@ -89,6 +89,9 @@ jms_serializer:
             User:
                 namespace_prefix: FOS\UserBundle
                 path: %kernel.root_dir%/serializer/User
+            User:
+                namespace_prefix: SiteBundle
+                path: %kernel.root_dir%/serializer/Sample
 
     default_context:
             serialization:
