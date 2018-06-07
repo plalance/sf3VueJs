@@ -3,9 +3,10 @@ namespace SiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\Groups;
 
 /**
- * Appareil
+ * Sample
  *
  * @ORM\Table(name="sample")
  * @ORM\Entity(repositoryClass="SiteBundle\Repository\SampleRepository")
@@ -19,6 +20,7 @@ class Sample
      * @ORM\Column(name="id_sample", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"application", "admin"})
      */
     protected $id;
 
@@ -27,6 +29,7 @@ class Sample
      * @Serializer\Expose(true)
      * @Serializer\Type("string")
      * @ORM\Column(name="label", type="string", nullable=false)
+     * @Groups({"application", "admin"})
      */
     protected $label;
 
@@ -35,10 +38,18 @@ class Sample
      * @Serializer\Expose(true)
      * @Serializer\Type("string")
      * @ORM\Column(name="description", type="string", nullable=false)
+     * @Groups({"application", "admin"})
      */
     protected $description;
 
-
+    /**
+     * @var int
+     * @Serializer\Expose()
+     * @Serializer\Type("int")
+     * @ORM\Column(name="age", type="integer")
+     * @Groups({"admin"})
+     */
+    protected $age;
 
     /**
      * Sample constructor.
@@ -93,5 +104,21 @@ class Sample
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * @param int $age
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
     }
 }

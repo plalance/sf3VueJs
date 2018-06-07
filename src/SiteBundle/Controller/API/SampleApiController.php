@@ -22,25 +22,21 @@ class SampleApiController extends Controller
      * @ParamConverter("sample", options={"mapping": {"sample_id": "id"}})
      */
     public function infosAction(Sample $sample){
+        $ctx = SerializationContext::create()->setGroups(array('admin'));
         $serializer = $this->get('jms_serializer');
-        return $this->json($serializer->serialize($sample, "json"));
+        return $this->json($serializer->serialize($sample, "json", $ctx));
     }
-
 
     /**
      * @ParamConverter("sample", options={"mapping": {"sample_id": "id"}})
      */
     public function updateAction(Request $request, Sample $sample)
     {
-//        $serializer = $this->get('jms_serializer');
-//        return $this->json($serializer->serialize($sample, "json"));
-//        $sampleUpdate = $request->request->get('sampleUpdate');
-//        return 'toto';
-        return $this->updateSample($request,true);
+        return $this->updateSample($request,false);
     }
 
-    public function updateSample(Request $request, $clearMissing){
-
+    public function updateSample(Request $request, $clearMissing)
+    {
         $sample = $this->get('doctrine.orm.entity_manager')
             ->getRepository('SiteBundle:Sample')
             ->find($request->get('sample_id')); // L'identifiant en tant que paramètre n'est plus nécessaire

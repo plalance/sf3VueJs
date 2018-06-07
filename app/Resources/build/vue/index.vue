@@ -273,7 +273,8 @@
                 content: '<h2>I am Example</h2>',
                 editorOption: {
                     // some quill options
-                }
+                },
+                sample: {}
             }
         },
         created() {
@@ -282,6 +283,7 @@
             this.staticFolder = datas.staticFolder;
 
             this.loadUsers();
+            this.loadSample();
         },
         computed: {
             getDatas() {
@@ -312,13 +314,18 @@
                 this.state = false;
             }.bind(this), 500);
 
-            this.updateSample();
+
         },
         watch: {
             chartText: function () {
                 this.$set(this, 'dataChart', JSON.parse(this.chartText));
                 this.myDoughnutChart.data = JSON.parse(this.chartText);
                 this.myDoughnutChart.update();
+            },
+            content: function () {
+                if (this.user.id){
+                    this.$set(this.user,'presentation', this.content)
+                }
             }
         },
         methods: {
@@ -335,7 +342,6 @@
                 };
                 let url = Routing.generate('api_user_usurpate', {'user_id': this.userId});
                 Vue.axios.get(url, params).then(function (response) {
-                    console.log(response.data);
                     that.$set(that, 'user', JSON.parse(response.data));
                 }).catch(function (error) {
                     console.log(error);
@@ -348,7 +354,6 @@
                 let params = {};
                 let url = Routing.generate('api_users_list');
                 Vue.axios.get(url, params).then(function (response) {
-                    console.log(response);
                     that.$set(that, 'users', JSON.parse(response.data));
                 }).catch(function (error) {
                     console.log(error);
@@ -359,7 +364,6 @@
                 let params = {};
                 let url = Routing.generate('api_user_logout');
                 Vue.axios.get(url, params).then(function (response) {
-                    console.log(response);
                     if (response.data === "disconnected") {
                         that.$set(that, 'user', {});
                     }
@@ -380,52 +384,56 @@
                 let url = Routing.generate('api_profile_notify', {'user_id': this.userId});
                 console.log(url);
                 Vue.axios.get(url, params).then(function (response) {
-                    console.log(response);
                 }).catch(function (error) {
                     console.log(error);
                 }).then(function () {
                     that.loadScreen(false);
                 });
             },
-            sendEmailContent(){
+            sendEmailContent() {
                 this.loadScreen(true);
                 let that = this;
                 let params = {
-                    content : this.content
+                    content: this.content
                 };
                 let url = Routing.generate('api_send_email_content');
                 Vue.axios.post(url, params).then(function (response) {
-                    console.log(response);
                 }).catch(function (error) {
                     console.log(error);
                 }).then(function () {
                     that.loadScreen(false);
                 });
             },
-            updatePresentation(){
+            updatePresentation() {
+                let that = this;
                 this.$set(this.user, 'presentation', this.content);
                 this.loadScreen(true);
                 let url = Routing.generate('api_user_update', {'user_id': this.user.id});
                 Vue.axios.put(url, this.user).then(function (response) {
-                    console.log(response);
+                    console.log(response.data);
                 }).catch(function (error) {
                     console.log(error);
                 }).then(function () {
                     that.loadScreen(false);
                 });
             },
-            updateSample(){
+            loadSample() {
+                let that = this;
+                let url = Routing.generate('api_sample', {'sample_id': 1});
+                Vue.axios.get(url).then(function (response) {
+                    that.$set(that, 'sample', JSON.parse(response.data));
+                }).catch(function (error) {
+                    console.log(error);
+                }).then(function () {
+                    that.loadScreen(false);
+                });
+            },
+            updateSample() {
                 this.loadScreen(true);
                 let that = this;
-                let params = {
-                };
-                let sample = {
-                        id:1,
-                        label: "TOTOTOOT",
-                        description: "DEEEESC"
-                };
+                let params = {};
                 let url = Routing.generate('api_sample_update', {'sample_id': 1});
-                Vue.axios.put(url, sample).then(function (response) {
+                Vue.axios.put(url, this.sample).then(function (response) {
                     console.log(response);
                 }).catch(function (error) {
                     console.log(error);

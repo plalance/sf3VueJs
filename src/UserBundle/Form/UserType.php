@@ -14,27 +14,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
-
     {
-        $builder->add('presentation');
-    }
+        $builder->add('id',HiddenType::class, ['mapped' => false]);
+        $builder->add('username',HiddenType::class, ['mapped' => true]);
+        $builder->add('username_canonical',HiddenType::class, ['mapped' => true]);
+        $builder->add('email',HiddenType::class, ['mapped' => true]);
+        $builder->add('email_canonical',HiddenType::class, ['mapped' => true]);
+        $builder->add('enabled',HiddenType::class, ['mapped' => true]);
+        $builder->add('salt',HiddenType::class, ['mapped' => false]);
+        $builder->add('password',HiddenType::class, ['mapped' => false]);
+        $builder->add('confirmation_token',HiddenType::class, ['mapped' => false]);
+        $builder->add('password_requested_at',HiddenType::class, ['mapped' => false]);
+        $builder->add('last_login',HiddenType::class, ['mapped' => false]);
+        $builder->add('roles',HiddenType::class, ['mapped' => true]);
 
-    public function getParent()
-
-    {
-        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
-    }
-
-    public function getBlockPrefix()
-
-    {
-        return 'app_user_registration';
-    }
-
-    public function getName()
-
-    {
-        return $this->getBlockPrefix();
+        $builder->add('presentation',HiddenType::class, ['mapped' => true]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

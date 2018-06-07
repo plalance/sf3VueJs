@@ -15,9 +15,10 @@ class SampleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', HiddenType::class, ['mapped' => true]);
+        $builder->add('id', HiddenType::class, ['mapped' => false]);
         $builder->add('label', HiddenType::class, ['mapped' => true]);
         $builder->add('description', HiddenType::class, ['mapped' => true]);
+        $builder->add('age', HiddenType::class, ['mapped' => true]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

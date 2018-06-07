@@ -96,33 +96,32 @@ class UserApiController extends Controller
         return $this->json("disconnected");
     }
 
-    public function updateAction(Request $request)
+    /**
+     * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
+     */
+    public function updateAction(Request $request, User $user)
     {
-//        $serializer = $this->get('jms_serializer');
-//        return $this->json($serializer->serialize($sample, "json"));
-//        $sampleUpdate = $request->request->get('sampleUpdate');
-//        return 'toto';
         return $this->updateUser($request, false);
     }
 
     public function updateUser(Request $request, $clearMissing)
     {
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername('paul');
+        $user = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('UserBundle:User')
+            ->find($request->get('user_id')); // L'identifiant en tant que paramètre n'est plus nécessaire
+        /* @var $user User */
 
-//        /$form = $this->createForm(UserType::class, $user);
-//        $form->submit($request->request->all(), $clearMissing);
-//        if ($form->isValid()) {
-//            $this->get('fos_user.user_manager')->updateUser($user, true);
-//            // make more modifications to the database
-//            $this->getDoctrine()->getManager()->flush();
-//            return "toto";
-//        } else {
-//            return new  Response(json_encode($form));
-//        }
-//        $em = $this->getDoctrine()->getManager();
-//        $em->($user);
-//        $em->flush();
-        return new Response(json_encode([$request->get('user_id'), $this->json($user),$request->request->all()]));
+        $form = $this->createForm(UserType::class, $user);
+        $form->submit($request->request->all(), $clearMissing);
+
+        if ($form->isValid()) {
+            $em = $this->get('doctrine.orm.entity_manager');
+            // make more modifications to the database
+            $em->merge($user);
+            $em->flush();
+            return new Response("BON");
+        } else {
+            return new  Response(json_encode($form));
+        }
     }
 }
