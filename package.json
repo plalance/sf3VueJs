@@ -21,6 +21,7 @@
     "vue-axios": "^2.0.2",
     "vue-loader": "^13.0.4",
     "vue-lodash": "^2.0.0",
+    "vue-quill-editor": "3.0.6",
     "vue-router": "^2.7.0",
     "vue-template-compiler": "^2.3.4",
     "vuex": "^2.3.1"

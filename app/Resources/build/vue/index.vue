@@ -1,7 +1,6 @@
 <template>
     <div class="uk-offcanvas-content" id="app">
         <Loader :state="state"></Loader>
-
         <h1 v-if="!user.id">Aucun User connecté</h1>
         <div v-else="">
             <h1>{{ user.username }}</h1>
@@ -27,66 +26,35 @@
         <h1>User connecté :</h1>
         <div id="content" data-uk-height-viewport="expand: true">
             <div class="uk-container uk-container-expand">
-                <div class="uk-grid uk-grid-divider uk-grid-medium uk-child-width-1-2 uk-child-width-1-4@l uk-child-width-1-5@xl"
-                     data-uk-grid>
-                    <div>
-                    <span class="uk-text-small"><span data-uk-icon="icon:users"
-                                                      class="uk-margin-small-right uk-text-primary"></span>New Users</span>
-                        <h1 class="uk-heading-primary uk-margin-remove  uk-text-primary">2.134</h1>
-                        <div class="uk-text-small">
-                            <span class="uk-text-success" data-uk-icon="icon: triangle-up">15%</span>de plus que la
-                            semaine dernière.
-                        </div>
-                    </div>
-                    <div>
-
-                    <span class="uk-text-small"><span data-uk-icon="icon:social"
-                                                      class="uk-margin-small-right uk-text-primary"></span>Social Media</span>
-                        <h1 class="uk-heading-primary uk-margin-remove uk-text-primary">8.490</h1>
-                        <div class="uk-text-small">
-                            <span class="uk-text-warning" data-uk-icon="icon: triangle-down">-15%</span>de moins que la
-                            semaine dernière
-                        </div>
-
-                    </div>
-                    <div>
-
-                    <span class="uk-text-small"><span data-uk-icon="icon:clock"
-                                                      class="uk-margin-small-right uk-text-primary"></span>Traffic hours</span>
-                        <h1 class="uk-heading-primary uk-margin-remove uk-text-primary">12.00
-                            <small class="uk-text-small">PM</small>
-                        </h1>
-                        <div class="uk-text-small">
-                            <span class="uk-text-success" data-uk-icon="icon: triangle-up"> 19%</span>de plus que la
-                            semaine dernière
-                        </div>
-
-                    </div>
-                    <div>
-
-                    <span class="uk-text-small"><span data-uk-icon="icon:search"
-                                                      class="uk-margin-small-right uk-text-primary"></span>Week Search</span>
-                        <h1 class="uk-heading-primary uk-margin-remove uk-text-primary">9.543</h1>
-                        <div class="uk-text-small">
-                            <span class="uk-text-danger" data-uk-icon="icon: triangle-down"> -23%</span> less than last
-                            week.
-                        </div>
-
-                    </div>
-                    <div class="uk-visible@xl">
-                    <span class="uk-text-small"><span data-uk-icon="icon:users"
-                                                      class="uk-margin-small-right uk-text-primary"></span>Lorem ipsum</span>
-                        <h1 class="uk-heading-primary uk-margin-remove uk-text-primary">5.284</h1>
-                        <div class="uk-text-small">
-                            <span class="uk-text-success" data-uk-icon="icon: triangle-up"> 7%</span> more than last
-                            week.
-                        </div>
-                    </div>
-                </div>
-                <hr>
                 <div class="uk-grid uk-grid-medium uk-grid-match" data-uk-grid>
                     <!-- panel -->
-                    <div class="uk-width-2-3@l uk-width-1-2@xl">
+                    <div class="uk-width-1-2@s uk-width-1-2@l">
+                        <div class="uk-card uk-card-default uk-card-small uk-card-hover">
+                            <div class="uk-card-header">
+                                <div class="uk-grid uk-grid-small">
+                                    <div class="uk-width-auto"><h4 class="uk-margin-remove-bottom">Editeur de texte</h4>
+                                    </div>
+                                    <div class="uk-width-expand uk-text-right">
+                                        <a href="#" class="uk-icon-link uk-margin-small-right"
+                                           data-uk-icon="icon: move"></a>
+                                        <a href="#" class="uk-icon-link uk-margin-small-right"
+                                           data-uk-icon="icon: cog"></a>
+                                        <a href="#" class="uk-icon-link" data-uk-icon="icon: close"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-card-body">
+                                <vue-quill-editor class="quill-editor" v-model="content"
+                                                  ref="myQuillEditor"
+                                                  :options="editorOption"
+                                                  @blur="onEditorBlur($event)"
+                                                  @focus="onEditorFocus($event)"
+                                                  @ready="onEditorReady($event)">
+                                </vue-quill-editor>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-2@s uk-width-1-2@l">
                         <div class="uk-card uk-card-default uk-card-small uk-card-hover">
                             <div class="uk-card-header">
                                 <div class="uk-grid uk-grid-small">
@@ -109,6 +77,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="uk-grid uk-grid-medium uk-grid-match" data-uk-grid>
+
                     <!-- /panel -->
                     <!-- panel -->
                     <div class="uk-width-1-2@s uk-width-1-3@l uk-width-1-4@xl">
@@ -136,7 +107,29 @@
                     </div>
                     <!-- /panel -->
                     <!-- panel -->
-                    <div class="uk-width-1-2@s uk-width-1-3@l uk-width-1-4@xl">
+                    <div class="uk-width-1-2@s uk-width-2-3@l uk-width-1-4@xl">
+                        <div class="uk-card uk-card-default uk-card-small uk-card-hover">
+                            <div class="uk-card-header">
+                                <div class="uk-grid uk-grid-small">
+                                    <div class="uk-width-auto"><h4 class="uk-margin-remove-bottom">Localisation</h4>
+                                    </div>
+                                    <div class="uk-width-expand uk-text-right">
+                                        <a href="#" class="uk-icon-link uk-margin-small-right"
+                                           data-uk-icon="icon: move"></a>
+                                        <a href="#" class="uk-icon-link uk-margin-small-right"
+                                           data-uk-icon="icon: cog"></a>
+                                        <a href="#" class="uk-icon-link" data-uk-icon="icon: close"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-card-body">
+                                <Gmap :marker-coordinates="markerCoordinates" :name="'supermap'" :zoom="14"></Gmap>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-grid uk-grid-medium uk-grid-match" data-uk-grid>
+                    <div class="uk-width-1-2@s uk-width-1-2@l uk-width-1-4@xl">
                         <div class="uk-card uk-card-default uk-card-small uk-card-hover">
                             <div class="uk-card-header">
                                 <div class="uk-grid uk-grid-small">
@@ -155,26 +148,6 @@
                                 <img :src="staticFolder + 'images/mapa3.svg'" alt="">
                                 <p class="uk-text-muted uk-text-small uk-text-center">Lorem ipsum dolor sit amet,
                                     consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-2@s uk-width-1-2@l uk-width-1-4@xl">
-                        <div class="uk-card uk-card-default uk-card-small uk-card-hover">
-                            <div class="uk-card-header">
-                                <div class="uk-grid uk-grid-small">
-                                    <div class="uk-width-auto"><h4 class="uk-margin-remove-bottom">Localisation</h4>
-                                    </div>
-                                    <div class="uk-width-expand uk-text-right">
-                                        <a href="#" class="uk-icon-link uk-margin-small-right"
-                                           data-uk-icon="icon: move"></a>
-                                        <a href="#" class="uk-icon-link uk-margin-small-right"
-                                           data-uk-icon="icon: cog"></a>
-                                        <a href="#" class="uk-icon-link" data-uk-icon="icon: close"></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="uk-card-body">
-                                <Gmap :marker-coordinates="markerCoordinates" :name="'supermap'" :zoom="14"></Gmap>
                             </div>
                         </div>
                     </div>
@@ -247,15 +220,20 @@
     import Chart from 'chart.js';
     import Gmap from './components/google-map';
     import Loader from './components/loader';
+    // import Quill from 'quill';
+    import VueQuillEditor from 'vue-quill-editor';
 
     export default {
         name: 'app',
-        components: {Gmap, Loader},
+        components: {
+            Gmap, Loader,
+            VueQuillEditor: VueQuillEditor.quillEditor
+        },
         data: function () {
             return {
                 user: {},
-                users : [],
-                notification_content : "",
+                users: [],
+                notification_content: "",
                 staticFolder: "",
                 chartText: "",
                 myDoughnutChart: {},
@@ -288,7 +266,11 @@
                     longitude: 6.844186600000057
                 }],
                 state: true,
-                userId: 0
+                userId: 0,
+                content: '<h2>I am Example</h2>',
+                editorOption: {
+                    // some quill options
+                }
             }
         },
         created() {
@@ -301,6 +283,9 @@
         computed: {
             getDatas() {
                 return JSON.parse(this.chartText);
+            },
+            editor() {
+                return this.$refs.myQuillEditor.quill
             }
         },
         beforeMount() {
@@ -308,7 +293,7 @@
         },
         mounted() {
             // user déjà en session (app.user) => On set son id pour le userId du select
-            if (this.user.id){
+            if (this.user.id) {
                 this.$set(this, 'userId', this.user.id);
             }
             // let url = Routing.generate('example', {'user_id': 1});
@@ -318,6 +303,8 @@
                 data: this.dataChart,
                 options: {}
             });
+            console.log('this is current quill instance object', this.editor)
+
             window.setTimeout(function () {
                 this.state = false;
             }.bind(this), 500);
@@ -330,10 +317,10 @@
             }
         },
         methods: {
-            loadScreen(bool){
+            loadScreen(bool) {
                 this.$set(this, 'state', bool);
             },
-            usurpateUser(){
+            usurpateUser() {
                 this.loadScreen(true);
                 let that = this;
                 let params = {
@@ -351,7 +338,7 @@
                     that.loadScreen(false);
                 });
             },
-            loadUsers(){
+            loadUsers() {
                 let that = this;
                 let params = {};
                 let url = Routing.generate('api_users_list');
@@ -362,20 +349,20 @@
                     console.log(error);
                 })
             },
-            logout(){
+            logout() {
                 let that = this;
                 let params = {};
                 let url = Routing.generate('api_user_logout');
                 Vue.axios.get(url, params).then(function (response) {
                     console.log(response);
-                    if (response.data === "disconnected"){
+                    if (response.data === "disconnected") {
                         that.$set(that, 'user', {});
                     }
                 }).catch(function (error) {
                     console.log(error);
                 })
             },
-            notifyAdmin(){
+            notifyAdmin() {
                 this.loadScreen(true);
                 let that = this;
                 let params = {
@@ -394,6 +381,19 @@
                 }).then(function () {
                     that.loadScreen(false);
                 });
+            },
+            onEditorBlur(quill) {
+                console.log('editor blur!', quill)
+            },
+            onEditorFocus(quill) {
+                console.log('editor focus!', quill)
+            },
+            onEditorReady(quill) {
+                console.log('editor ready!', quill)
+            },
+            onEditorChange({quill, html, text}) {
+                console.log('editor change!', quill, html, text)
+                this.content = html
             }
         }
     }

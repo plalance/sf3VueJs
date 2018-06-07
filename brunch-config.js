@@ -34,7 +34,9 @@ exports.config = {
         babel: {},
         sass: {
             options: {
-                includePaths: ["node_modules/uikit/src/scss"]
+                includePaths: [
+                    "node_modules/uikit/src/scss",
+                ]
             }
         },
         copycat:{
@@ -42,6 +44,13 @@ exports.config = {
             "images": ["./app/Resources/build/images"],
             verbose : true, //shows each file that is copied to the destination directory
             onlyChanged: true //only copy a file if it's modified time has changed (only effective when using brunch watch)
+        },
+        postcss: {
+            modules: true,
+            processors: [
+                require('autoprefixer')(['last 8 versions']),
+                require('csswring')()
+            ]
         }
         // Globales se déclarent ic ou dans les fichiers js avec import ... from '...'
         // globals: {
