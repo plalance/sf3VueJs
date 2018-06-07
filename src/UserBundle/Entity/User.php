@@ -35,6 +35,14 @@ class User extends BaseUser
     protected $email;
 
     /**
+     * @var string The presentation of the user.
+     * @Serializer\Expose(true)
+     * @Serializer\Type("string")
+     * @ORM\Column(name="presentation", type="string", nullable=true)
+     */
+    protected $presentation;
+
+    /**
      * @var bool
      * @Serializer\Expose(true)
      */
@@ -68,4 +76,19 @@ class User extends BaseUser
         parent::__construct();
     }
 
+    /**
+     * @return string
+     */
+    public function getPresentation()
+    {
+        return $this->presentation;
+    }
+
+    /**
+     * @param string $presentation
+     */
+    public function setPresentation($presentation)
+    {
+        $this->presentation = $presentation;
+    }
 }

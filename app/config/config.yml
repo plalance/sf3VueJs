@@ -89,3 +89,17 @@ jms_serializer:
             User:
                 namespace_prefix: FOS\UserBundle
                 path: %kernel.root_dir%/serializer/User
+
+    default_context:
+            serialization:
+                serialize_null: true
+                version: ~
+                attributes: {}
+                groups: ['Default']
+                enable_max_depth_checks: false
+            deserialization:
+                serialize_null: true
+                version: ~
+                attributes: {}
+                groups: ['Default']
+                enable_max_depth_checks: false
