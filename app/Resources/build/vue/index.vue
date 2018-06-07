@@ -10,6 +10,10 @@
             <input type="text" v-model="notification_content">
             <button @click="notifyAdmin()">Envoyer un mail de notification</button>
             <button @click="logout()">Se déconnecter</button>
+            <div>
+                <h3>Sa présentation</h3>
+                <div v-html="user.presentation"></div>
+            </div>
         </div>
 
         <form class="uk-form">
@@ -51,6 +55,8 @@
                                                   @ready="onEditorReady($event)">
                                 </vue-quill-editor>
                                 <button @click="sendEmailContent()">Envoyer ce contenu par mail</button>
+                                <button @click="updatePresentation()">Définir comme nouvelle présentation</button>
+                                <button @click="updateSample()">Merge sample</button>
                             </div>
                         </div>
                     </div>
@@ -305,6 +311,8 @@
             window.setTimeout(function () {
                 this.state = false;
             }.bind(this), 500);
+
+            this.updateSample();
         },
         watch: {
             chartText: function () {
@@ -387,6 +395,42 @@
                 };
                 let url = Routing.generate('api_send_email_content');
                 Vue.axios.post(url, params).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                }).then(function () {
+                    that.loadScreen(false);
+                });
+            },
+            updatePresentation(){
+                this.$set(this.user, 'presentation', this.content);
+                this.loadScreen(true);
+                let that = this;
+                let params = {
+                    user: this.user
+                };
+                let url = Routing.generate('api_user_update', {'user_id': this.userId});
+                Vue.axios.put(url, params).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                }).then(function () {
+                    that.loadScreen(false);
+                });
+            },
+            updateSample(){
+                this.loadScreen(true);
+                let that = this;
+                let params = {
+                };
+                let sample = {
+                        id:1,
+                        label: "TOTOTOOT",
+                        description: "DEEEESC"
+                };
+
+                let url = Routing.generate('api_sample_update', {'sample_id': 1});
+                Vue.axios.put(url, sample).then(function (response) {
                     console.log(response);
                 }).catch(function (error) {
                     console.log(error);

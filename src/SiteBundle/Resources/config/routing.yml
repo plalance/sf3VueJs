@@ -5,3 +5,19 @@ homepage:
 homepage_vue:
     path:     /vue/
     defaults: { _controller: SiteBundle:Vue:index }
+
+api_sample:
+    path:      /api/sample/{sample_id}
+    defaults:  { _controller: SiteBundle:API\SampleApi:infos }
+    requirements:
+        user_id: \d+
+    options:
+        expose: true
+
+api_sample_update:
+    path:      /api/sample/update/{sample_id}
+    defaults:  { _controller: SiteBundle:API\SampleApi:update }
+    requirements:
+        user_id: \d+
+    options:
+        expose: true

@@ -1,0 +1,2 @@
+SiteBundle\Model\Sample:
+    exclusion_policy: ALL
