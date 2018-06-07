@@ -1,0 +1,16 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: sf3
+    database_user: root
+    database_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+    mailer_user: "lalance.paul@gmail.com"
+    mailer_password: "mol12345"
+    mailer_transport: smtp
+    mailer_host: smtp.gmail.com
+    mailer_auth_mode: login
+    mailer_port: 465
+    mailer_encryption: ssl
