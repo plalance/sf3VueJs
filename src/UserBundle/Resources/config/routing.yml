@@ -33,3 +33,9 @@ api_users_list:
     defaults:  { _controller: UserBundle:API\UserApi:list }
     options:
         expose: true
+
+api_user_update:
+    path: /api/user/update/{user_id}
+    defaults:  { _controller: UserBundle:API\UserApi:update }
+    options:
+        expose: true

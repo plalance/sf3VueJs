@@ -27,6 +27,21 @@ class UserApiController extends Controller
     /**
      * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
      */
+    public function updateAction(Request $request, User $user){
+
+        $userUpdate = $request->request->get('user');
+        $serializer = $this->get('jms_serializer');
+
+        $em = $this->get('doctrine.orm.entity_manager');
+        $em->merge();
+        $em->flush();
+
+        return new Response($this->json($userUpdate));
+    }
+
+    /**
+     * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
+     */
     public function notifyAdminAction(Request $request, User $user){
         $response = "ERREUR";
         if($method = $request->query->has('method') and $request->query->get('method')=="email"){
