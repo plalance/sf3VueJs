@@ -20,7 +20,6 @@
                     <option v-for="user in users" :value="user.id">Se connecter avec {{ user.username }}</option>
                 </select>
             </fieldset>
-
         </form>
 
         <h1>User connecté :</h1>
@@ -51,6 +50,7 @@
                                                   @focus="onEditorFocus($event)"
                                                   @ready="onEditorReady($event)">
                                 </vue-quill-editor>
+                                <button @click="sendEmailContent()">Envoyer ce contenu par mail</button>
                             </div>
                         </div>
                     </div>
@@ -99,9 +99,6 @@
                             <div class="uk-card-body">
                                 <textarea name="" id="" cols="30" rows="10" v-model="chartText"></textarea>
                                 <canvas id="myChart" width="400" height="400"></canvas>
-                                <!--{# <img src="{% static " img/mapa2.svg" %}" alt="">#}-->
-                                <!--{# <p class="uk-text-muted uk-text-small uk-text-center">Lorem ipsum dolor sit amet,#}-->
-                                <!--{# consectetur adipiscing elit.</p>#}-->
                             </div>
                         </div>
                     </div>
@@ -375,6 +372,21 @@
                 let url = Routing.generate('api_profile_notify', {'user_id': this.userId});
                 console.log(url);
                 Vue.axios.get(url, params).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                }).then(function () {
+                    that.loadScreen(false);
+                });
+            },
+            sendEmailContent(){
+                this.loadScreen(true);
+                let that = this;
+                let params = {
+                    content : this.content
+                };
+                let url = Routing.generate('api_send_email_content');
+                Vue.axios.post(url, params).then(function (response) {
                     console.log(response);
                 }).catch(function (error) {
                     console.log(error);
