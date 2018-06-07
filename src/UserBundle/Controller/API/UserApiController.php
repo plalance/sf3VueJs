@@ -12,14 +12,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
 use UserBundle\Entity\User;
+use UserBundle\Form\UserType;
 
 class UserApiController extends Controller
 {
     /**
      * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
      */
-    public function infosAction(User $user){
+    public function infosAction(User $user)
+    {
         $serializer = $this->get('jms_serializer');
         return $this->json($serializer->serialize($user, "json"));
     }
@@ -27,24 +30,10 @@ class UserApiController extends Controller
     /**
      * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
      */
-    public function updateAction(Request $request, User $user){
-
-        $userUpdate = $request->request->get('user');
-        $serializer = $this->get('jms_serializer');
-
-        $em = $this->get('doctrine.orm.entity_manager');
-        $em->merge();
-        $em->flush();
-
-        return new Response($this->json($userUpdate));
-    }
-
-    /**
-     * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
-     */
-    public function notifyAdminAction(Request $request, User $user){
+    public function notifyAdminAction(Request $request, User $user)
+    {
         $response = "ERREUR";
-        if($method = $request->query->has('method') and $request->query->get('method')=="email"){
+        if ($method = $request->query->has('method') and $request->query->get('method') == "email") {
             $user->sendNotificationByEmail($request->query->get('content'));
             $response = "Message envoyé;";
         }
@@ -52,7 +41,8 @@ class UserApiController extends Controller
         return $this->json($response);
     }
 
-    public function listAction(){
+    public function listAction()
+    {
         $users = $this->getDoctrine()
             ->getRepository('UserBundle:User')
             ->findBy(array(), array('username' => 'desc'));
@@ -64,7 +54,8 @@ class UserApiController extends Controller
     /**
      * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
      */
-    public function usurpateAction(Request $request, User $user){
+    public function usurpateAction(Request $request, User $user)
+    {
 
         if (!$user) {
             throw $this->createNotFoundException('No user found');
@@ -82,7 +73,8 @@ class UserApiController extends Controller
         return $this->json($serializer->serialize($user, "json"));
     }
 
-    public function logoutAction(Request $request){
+    public function logoutAction(Request $request)
+    {
 
         $token = new AnonymousToken('main', 'anon.');
 
@@ -102,5 +94,35 @@ class UserApiController extends Controller
 //            $response->headers->clearCookie($cookieName);
 //        }
         return $this->json("disconnected");
+    }
+
+    public function updateAction(Request $request)
+    {
+//        $serializer = $this->get('jms_serializer');
+//        return $this->json($serializer->serialize($sample, "json"));
+//        $sampleUpdate = $request->request->get('sampleUpdate');
+//        return 'toto';
+        return $this->updateUser($request, false);
+    }
+
+    public function updateUser(Request $request, $clearMissing)
+    {
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername('paul');
+
+//        /$form = $this->createForm(UserType::class, $user);
+//        $form->submit($request->request->all(), $clearMissing);
+//        if ($form->isValid()) {
+//            $this->get('fos_user.user_manager')->updateUser($user, true);
+//            // make more modifications to the database
+//            $this->getDoctrine()->getManager()->flush();
+//            return "toto";
+//        } else {
+//            return new  Response(json_encode($form));
+//        }
+//        $em = $this->getDoctrine()->getManager();
+//        $em->($user);
+//        $em->flush();
+        return new Response(json_encode([$request->get('user_id'), $this->json($user),$request->request->all()]));
     }
 }

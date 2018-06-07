@@ -405,12 +405,8 @@
             updatePresentation(){
                 this.$set(this.user, 'presentation', this.content);
                 this.loadScreen(true);
-                let that = this;
-                let params = {
-                    user: this.user
-                };
-                let url = Routing.generate('api_user_update', {'user_id': this.userId});
-                Vue.axios.put(url, params).then(function (response) {
+                let url = Routing.generate('api_user_update', {'user_id': this.user.id});
+                Vue.axios.put(url, this.user).then(function (response) {
                     console.log(response);
                 }).catch(function (error) {
                     console.log(error);
@@ -428,7 +424,6 @@
                         label: "TOTOTOOT",
                         description: "DEEEESC"
                 };
-
                 let url = Routing.generate('api_sample_update', {'sample_id': 1});
                 Vue.axios.put(url, sample).then(function (response) {
                     console.log(response);
