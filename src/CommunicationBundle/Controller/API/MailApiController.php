@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use UserBundle\Entity\User;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class MailApiController extends Controller
 {
@@ -45,20 +47,24 @@ class MailApiController extends Controller
         $postContent = $request->request->get('content');
 
         if ($this->getUser()) {
+
+            $random_hash = md5(date('r', time()));
+            $filePAth = $request->server->get('DOCUMENT_ROOT').'/uploads/bf5.pdf';
+
             $template = $this->renderView('CommunicationBundle::mail.html.twig', [
                 'content' => $postContent
             ]);
-            ini_set('display_errors', 1);
 
-            error_reporting(E_ALL);
-            $to = "lalance.paul@gmail.com";
-
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $headers .= "From: test@votredomaine.com\r\n"."X-Mailer: php";
-            $subject = "Message de l'administrateur";
-            $headers .= "Content-Type: text/plain; charset=\"iso-8859-1\"";
-            mail($to, $subject, $template, $headers);
+            $email = new PHPMailer();
+            $email->isHTML(true);
+            $email->From      = 'mol.sf2devveloper@gmail.com';
+            $email->FromName  = 'Message MailApi';
+            $email->Subject   = 'Super Objet';
+            $email->Body      = $template;
+            $email->AddAddress( 'lalance.paul@gmail.com' );
+            $email->AddAttachment( $filePAth , 'bf5.pdf' );
+            $email->Send();
+            
         } else {
             return $this->json("Vous n'êtes pas connectés, pas d'accès à l'API");
         }

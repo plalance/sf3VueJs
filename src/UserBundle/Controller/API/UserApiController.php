@@ -21,7 +21,7 @@ class UserApiController extends Controller
     /**
      * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
      */
-    public function infosAction(User $user)
+    public function infosAction(Request $request, User $user)
     {
         $serializer = $this->get('jms_serializer');
         return $this->json($serializer->serialize($user, "json"));
