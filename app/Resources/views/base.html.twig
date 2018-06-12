@@ -5,11 +5,19 @@
     <meta charset="UTF-8">
     <title>Base</title>
     <link rel="stylesheet" href="{{ asset('/assets/app.css') }}"/>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd4Poy6TmjkrC8AHTeL7XX6aLS4Pyz45I"></script>
     <script src="{{ asset("/assets/vendor.js") }}"></script>
     <script src="{{ asset("/assets/app.js") }}"></script>
 </head>
 <body>
+
+<header>
+    <ul>
+        <li><a href="{{ path('homepage') }}">Accueil</a></li>
+        <li><a href="{{ path('homepage_vue') }}">Application Vue Dashboard</a></li>
+        <li><a href="{{ path('cartography') }}">Map d'évènnements</a></li>
+    </ul>
+</header>
+
 <div id="loader">
     <div class="lds-roller">
         <div></div>

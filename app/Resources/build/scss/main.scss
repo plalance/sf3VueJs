@@ -11,10 +11,10 @@
 @import "quill-editor/quill.bubble";
 
 body {
-  overflow: hidden;
+  position: relative;
 }
 
-#app{
-    overflow: auto;
-    height: 100vh;
+#map{
+  width: 500px;
+  height: 450px;
 }

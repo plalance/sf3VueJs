@@ -2,6 +2,10 @@ homepage:
     path:     /
     defaults: { _controller: SiteBundle:Site:index }
 
+cartography:
+    path:     /cartography
+    defaults: { _controller: SiteBundle:Cartography:index }
+
 homepage_vue:
     path:     /vue/
     defaults: { _controller: SiteBundle:Vue:index }

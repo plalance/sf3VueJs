@@ -9,7 +9,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd4Poy6TmjkrC8AHTeL7XX6aLS4Pyz45I"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
     <script>
