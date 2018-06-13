@@ -30,6 +30,9 @@ Gestion des dépendances front-end faite avec NPM (voir package.json)
 - Avoir composer d'installé
 - Avoir git et gitflow d'installé
 
+# Les scripts sh
+        build.sh -> Script à utiliser dès que l'on souhaite générer les tables de la BDD, à chaque modification des entités mappées, on utilise cette commande. Elle va faire le clear de la migration actuelle, générer les différences et exécuter la migration si on le souhaite. (build.sh appelle en cascade clear.sh et migrate.sh)
+        createAdmin.sh -> A utiliser une fois au début pour créer un admin par défaut : paul / paul
 # Installation
         Cloner le projet
 		Configurer une bdd en accord avec le parameters.yml
@@ -39,6 +42,7 @@ Gestion des dépendances front-end faite avec NPM (voir package.json)
 		Install des assets (fosJsRouting) -> php bin/console assets:install web
 		Brunch build
 		Vider le cache
+		Créer un utilisateur en base avec la commande .sh (voir scripts sh)
 		Go
 		
 # Exemple de configuration wamp (windows)
