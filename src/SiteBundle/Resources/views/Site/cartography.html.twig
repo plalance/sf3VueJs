@@ -1,9 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    {% if app.user is not empty %}
-        {{ dump(app.user) }}
-    {% endif %}
+    {{ dump(_context) }}
     <h2>Cartographie des évènements</h2>
 
     <div id="map"></div>
@@ -19,7 +17,10 @@
 
     <script>require('js-marker-clusterer/src/markerclusterer.js');</script>
 
+    <script>var axios = require('axios');</script>
+
     <script>
+        var map;
         function initMap() {
 
             // Default Settings
@@ -29,7 +30,7 @@
                 zoom: 8
             };
 
-            var map = new google.maps.Map(document.getElementById('map'), {
+            map = new google.maps.Map(document.getElementById('map'), {
                 zoom: settings.zoom,
                 center: {lat: settings.lat, lng: settings.lng}
             });
@@ -41,7 +42,7 @@
             // Note: The code uses the JavaScript Array.prototype.map() method to
             // create an array of markers based on a given "locations" array.
             // The map() method here has nothing to do with the Google Maps API.
-            var markers = locations.map(function(location, i) {
+            var markers = locations.map(function (location, i) {
                 return new google.maps.Marker({
                     position: location,
                     label: labels[i % labels.length]
@@ -52,6 +53,7 @@
             var markerCluster = new MarkerClusterer(map, markers,
                 {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
         }
+
         var locations = [
             {lat: -31.563910, lng: 147.154312},
             {lat: -33.718234, lng: 150.363181},
@@ -76,7 +78,21 @@
             {lat: -42.734358, lng: 147.501315},
             {lat: -42.735258, lng: 147.438000},
             {lat: -43.999792, lng: 170.463352}
-        ]
+        ];
 
+        axios.get('http://local.sf3.com/app_dev.php/api/location/list').then(function (response) {
+            locations = JSON.parse(response.data);
+            console.log(locations);
+            for (var i = 0; i < locations.length; i++) {
+                var location = locations[i];
+                var latLng = new google.maps.LatLng(location['latitude'], location['longitude']);
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map
+                });
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
     </script>
 {% endblock %}

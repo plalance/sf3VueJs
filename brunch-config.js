@@ -24,7 +24,7 @@ exports.config = {
     },
     modules: {
         autoRequire: {
-            'app.js': ['resources/build/main.js'],
+            'app.js': ['Resources/build/main.js'],
         }
     },
     npm: {

@@ -6,6 +6,12 @@ cartography:
     path:     /cartography
     defaults: { _controller: SiteBundle:Cartography:index }
 
+api_location_list:
+    path:      /api/location/list
+    defaults:  { _controller: SiteBundle:Cartography:list }
+    options:
+        expose: true
+
 homepage_vue:
     path:     /vue/
     defaults: { _controller: SiteBundle:Vue:index }
