@@ -58,9 +58,16 @@ Emplacement du fichier de configuration localhost sur wamp (windows):
                     Require local
                 </Directory>
         </VirtualHost>
+ATTENTION : Pour que celà fonctionne sous windows pensez à éditer le fichier hosts pour prendre en compte le nom de domaine local.
+## Sous windows
+C:\Windows\System32\drivers\etc\hosts
+## Sous Unix (Ubuntu Server 14 / 16.04 LTS)
+/etc/hosts
  
 Enjoy :)
 
 # Erreurs possibles :
 - The path "fos_user.from_email.address" cannot contain an empty value, but got null.
     - Changer les valeurs du parameters.yml -> email ne doit pas être null
+# No route found (page) : 
+- Vider le cache : php bin/console cache:clear --env=dev OU php bin/console cache:clear --env=prod selon la situtation OU rm rf var/cache/* (méthode bourrin)
