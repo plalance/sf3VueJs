@@ -1,3 +1,23 @@
+# Le projet
+ - Une partie Dashboard (localisation google map, affichage de graphiques, connexion / déconnexion) en VueJs, interractions via API Rest
+ - Une partie présentation "classique", (MVC Entity / Controller / Templates Twig)
+ - Une cartographie (google map) de mes voyages... (Entités location)
+
+# Technologies
+La gestion des utilisateurs est faite avec le bundle FOSUserBundle, adapté au projet.
+Gestion de la sérialisation des entités / response avec JMSSerializer (https://jmsyst.com/bundles/JMSSerializerBundle)
+ORM Doctrine, update de la base avec Doctrine Migration (doc ici : https://symfony.com/doc/master/bundles/DoctrineMigrationsBundle/index.html)
+
+Scripts sh de génération de migration, d'update du schema de BDD, de création d'users dans le répertoire : app/sh
+
+Gestion des dépendances front-end faite avec NPM (voir package.json)
+ - Jquery
+ - Axios (Pour les promesses de requettes HTTP PUT / GET / POST -> https://github.com/axios/axios)
+ - Framework front-end VueJs 2 ( ma confiugration permet l'écriture de code sous forme de template .vue compilés directement par Brunch )
+ 
+ Compilation JS / SCSS / Fichiers
+  - Brunch (voir http://brunch.io/docs/config pour comprendre ma configuration)
+
 # Prérequis
 - NodeJs / Npm (voir https://nodejs.org/en/download/ pour installatateur windows)
 - Avoir mis à jour sa version npm (https://www.npmjs.com/package/latest-version)
