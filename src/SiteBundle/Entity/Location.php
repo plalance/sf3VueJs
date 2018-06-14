@@ -1,5 +1,6 @@
 <?php
 namespace SiteBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
@@ -15,6 +16,7 @@ class Location
 {
     /**
      * @var int
+     *
      * @Serializer\Expose(true)
      * @Serializer\Type("int")
      * @ORM\Column(name="id_location", type="integer")
@@ -25,20 +27,47 @@ class Location
     protected $id;
 
     /**
+     * @var float
+     *
+     * Latitude
      * @Serializer\Expose(true)
      * @Serializer\Type("string")
-     * @ORM\Column(name="latitude", type="float", nullable=true)
+     * @ORM\Column(name="latitude", type="float", nullable=false)
      * @Groups({"application", "admin"})
      */
     protected $latitude;
 
     /**
+     * @var float
+     *
+     * Longitude
      * @Serializer\Expose(true)
      * @Serializer\Type("string")
-     * @ORM\Column(name="longitude", type="float", nullable=true)
+     * @ORM\Column(name="longitude", type="float", nullable=false)
      * @Groups({"application", "admin"})
      */
     protected $longitude;
+
+    /**
+     * @var ArrayCollection
+     *
+     * Les évènements qui se sont déroulés ici
+     * @Serializer\Expose
+     * @ORM\OneToMany(targetEntity="SiteBundle\Entity\Event", mappedBy="location")
+     * @Groups({"application", "admin"})
+     */
+    private $events;
+
+    /**
+     * @var String
+     *
+     * Icone Google Map
+     * @Serializer\Expose
+     * @Serializer\Type("string")
+     * @ORM\Column(name="icon", type="string", nullable=true)
+     * @Groups({"application", "admin"})
+     */
+    protected $iconForGoogleMap;
 
 
     /**
@@ -65,7 +94,7 @@ class Location
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getLatitude()
     {
@@ -73,7 +102,7 @@ class Location
     }
 
     /**
-     * @param mixed $latitude
+     * @param float $latitude
      */
     public function setLatitude($latitude)
     {
@@ -81,7 +110,7 @@ class Location
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getLongitude()
     {
@@ -89,10 +118,66 @@ class Location
     }
 
     /**
-     * @param mixed $longitude
+     * @param float $longitude
      */
     public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param ArrayCollection $events
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+    }
+
+    /**
+     * @return String
+     */
+    public function getIconForGoogleMap()
+    {
+        return $this->iconForGoogleMap;
+    }
+
+    /**
+     * @param String $iconForGoogleMap
+     */
+    public function setIconForGoogleMap($iconForGoogleMap)
+    {
+        $this->iconForGoogleMap = $iconForGoogleMap;
+    }
+
+    /**
+     * Add event
+     *
+     * @param \SiteBundle\Entity\Event $event
+     *
+     * @return Location
+     */
+    public function addEvent(\SiteBundle\Entity\Event $event)
+    {
+        $this->events[] = $event;
+
+        return $this;
+    }
+
+    /**
+     * Remove event
+     *
+     * @param \SiteBundle\Entity\Event $event
+     */
+    public function removeEvent(\SiteBundle\Entity\Event $event)
+    {
+        $this->events->removeElement($event);
     }
 }
