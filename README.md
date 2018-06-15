@@ -14,14 +14,22 @@ API communication (permet pour le moment d'envoyer des mails aux utilisateurs, d
 Fonctionne sous unix (si serveur mail configuré) sinon sous wamp -> Utilisation de comtpe google smtp pour envoi de mail (pool disponible)
 
 Gestion des dépendances front-end faite avec NPM (voir package.json)
- - Jquery
- - Axios (Pour les promesses de requettes HTTP PUT / GET / POST -> https://github.com/axios/axios)
- - Framework front-end VueJs 2 ( ma confiugration permet l'écriture de code sous forme de template .vue compilés directement par Brunch )
+|Dépendance|Doc|
+|Framework front-end VueJs 2|
+
+| Technologie   |     Doc         |
+| :------------ | :-------------: |
+| VueJs2        |...              |
+| Chart.js      |...              |
+| Axios         |...              |
+
+- Axios (Pour les promesses de requettes HTTP PUT / GET / POST -> https://github.com/axios/axios) 
  
  Compilation JS / SCSS / Fichiers
   - Brunch (voir http://brunch.io/docs/config pour comprendre ma configuration)
 
 # Prérequis
+- Avoir un serveur web (LAMP, WAMP, LEMP...)
 - NodeJs / Npm (voir https://nodejs.org/en/download/ pour installatateur windows)
 - Avoir mis à jour sa version npm (https://www.npmjs.com/package/latest-version)
 		npm install --save latest-version
@@ -45,13 +53,15 @@ Gestion des dépendances front-end faite avec NPM (voir package.json)
 		Créer un utilisateur en base avec la commande .sh (voir scripts sh)
 		Go
 		
-# Exemple de configuration wamp (windows)
+# Exemple de configuration de vhost sous wamp (windows)
 Emplacement du fichier de configuration localhost sur wamp (windows):
-- C:\wamp64\bin\apache\apache2.4.23\conf\extra\httpd-vhosts.conf
+
+        C:\wamp64\bin\apache\apache2.4.23\conf\extra\httpd-vhosts.conf
+<br>
 
         <VirtualHost *:80>
-            ServerName local.exemple.fr
-            DocumentRoot c:/wamp64/www/exemple/web
+            ServerName local.votredomaine.fr
+            DocumentRoot c:/wamp64/www/votredomaine/web
                 <Directory  "c:/wamp64/www/exxemple/web">
                     Options +Indexes +Includes +FollowSymLinks +MultiViews
                     AllowOverride All
@@ -59,15 +69,21 @@ Emplacement du fichier de configuration localhost sur wamp (windows):
                 </Directory>
         </VirtualHost>
 ATTENTION : Pour que celà fonctionne sous windows pensez à éditer le fichier hosts pour prendre en compte le nom de domaine local.
-## Sous windows
-C:\Windows\System32\drivers\etc\hosts
-## Sous Unix (Ubuntu Server 14 / 16.04 LTS)
-/etc/hosts
- 
-Enjoy :)
+
+        127.0.0.1 local.votredomaine.fr
+#### Sous windows
+        C:\Windows\System32\drivers\etc\hosts
+#### Sous Unix (Ubuntu Server 14 / 16.04 LTS)
+        /etc/hosts
 
 # Erreurs possibles :
 - The path "fos_user.from_email.address" cannot contain an empty value, but got null.
     - Changer les valeurs du parameters.yml -> email ne doit pas être null
-# No route found (page) : 
-- Vider le cache : php bin/console cache:clear --env=dev OU php bin/console cache:clear --env=prod selon la situtation OU rm rf var/cache/* (méthode bourrin)
+- No route found (page) : 
+    - Vider le cache : php bin/console cache:clear --env=dev OU php bin/console cache:clear --env=prod selon la situtation OU rm rf var/cache/* (méthode bourrin)
+- Erreurs pendant la génération de la BDD avec build.sh :
+    - Soucis liés aux contraintes de clés, aux tables qui existent déjà en base, à l'ajout de contrainte d'intégrité impossible
+    -> Vérifier vos entités... sinon
+    -> Effacer le contenu du dossier app/DoctrineMigrations
+    -> Vider (DROP TABLE) la table des migration_versions
+    -> Relancer le build.sh
