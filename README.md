@@ -13,20 +13,26 @@ Scripts sh de génération de migration, d'update du schema de BDD, de création
 API communication (permet pour le moment d'envoyer des mails aux utilisateurs, dont le contenu est saisi directement dans l'interface dashboard VueJs au moyen d'un éditeur type tinymce). On se connecte à un User, on saisi le contenu du mail -> API -> Mail envoyé...
 Fonctionne sous unix (si serveur mail configuré) sinon sous wamp -> Utilisation de comtpe google smtp pour envoi de mail (pool disponible)
 
-Gestion des dépendances front-end faite avec NPM (voir package.json)
-|Dépendance|Doc|
-|Framework front-end VueJs 2|
+La gestion des dépendances front est faite avec NPM (voir package.json)
 
-| Technologie   |     Doc         |
-| :------------ | :-------------: |
-| VueJs2        |...              |
-| Chart.js      |...              |
-| Axios         |...              |
+###Les technologies et outils
 
-- Axios (Pour les promesses de requettes HTTP PUT / GET / POST -> https://github.com/axios/axios) 
- 
- Compilation JS / SCSS / Fichiers
-  - Brunch (voir http://brunch.io/docs/config pour comprendre ma configuration)
+| Technologie   |     Doc         |     Infos supplémentaires         |
+| :------------ | :-------------: |:-------------: |
+| VueJs2        |https://vuejs.org/v2/guide/| Framework Front-End|
+| Chart.js      |http://www.chartjs.org/docs/latest/| Librairie de graphiques et diagrammes|
+| Axios         |https://github.com/axios/axios|Pour les promesses de requettes HTTP PUT / GET / POST|
+| Vue-Axios     |     |Wrapper Axios VueJs 2|
+|Lodash         |https://lodash.com/|Librairie facilitant la manipulation / opérations sur les objets javascripts|
+|Vue-X||Gestionnaire de State et Commit / Dispatcher d'objets JS dans tous les composants Vue|
+
+###Compilation et gestion des sources
+| Technologie   |     Doc         |     Infos supplémentaires         |
+| :------------ | :-------------: |:-------------: |
+|Brunch (similaire à Webpack)|http://brunch.io/docs/config|  |
+| Vue-Loader    |   |Compilation SASS (.scss) / .js / .vue / Concaténation en css / destion des assets|
+| Vue-Template-Compiler    | | Permet l'écriture / interprétation des composants Vue sous forme de template .vue |
+| Copycat    | PLugin Brunch | Permet de gérer les assets à copier en dur (images / fonts / etc..) dans le répertoire public|
 
 # Prérequis
 - Avoir un serveur web (LAMP, WAMP, LEMP...)
