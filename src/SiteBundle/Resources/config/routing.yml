@@ -6,15 +6,22 @@ cartography:
     path:     /cartography
     defaults: { _controller: SiteBundle:Cartography:index }
 
+homepage_vue:
+    path:     /vue/
+    defaults: { _controller: SiteBundle:Vue:index }
+
+create_location:
+    path:     /location/create
+    defaults: { _controller: SiteBundle:Location:create }
+    methods: POST
+    options:
+        expose: false
+
 api_location_list:
     path:      /api/location/list
     defaults:  { _controller: SiteBundle:Cartography:list }
     options:
         expose: true
-
-homepage_vue:
-    path:     /vue/
-    defaults: { _controller: SiteBundle:Vue:index }
 
 api_sample:
     path:      /api/sample/{sample_id}

@@ -4,7 +4,11 @@ namespace SiteBundle\Controller;
 
 use JMS\Serializer\SerializationContext;
 use SiteBundle\Entity\Event;
+use SiteBundle\Entity\Location;
+use SiteBundle\Form\EventType;
+use SiteBundle\Form\LocationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class CartographyController extends Controller
 {
@@ -14,7 +18,6 @@ class CartographyController extends Controller
         $locations = $this->getDoctrine()
             ->getRepository('SiteBundle:Location')
             ->findAll();
-
         // Context application + serialisation
         $ctx = SerializationContext::create()->setGroups(array('application'));
         $ctx->setSerializeNull(true);
@@ -22,9 +25,31 @@ class CartographyController extends Controller
         return $this->json($serializer->serialize($locations, "json", $ctx));
     }
 
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->render('SiteBundle:Site:cartography.html.twig', [
+        $event = new Event();
+        $formEvent = $this->createForm(EventType::class, $event, array());
+        $formEvent->handleRequest($request);
+
+        $location = new Location();
+        $formLocation = $this->createForm(LocationType::class, $location, array());
+
+        if ($formEvent->isSubmitted() && $formEvent->isValid()) {
+
+            $event->setName($formEvent->get('name')->getData());
+            $event->setLocation($formEvent->get('location')->getData());
+            $event->setIcon($formEvent->get('icon')->getData());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+
+            return $this->redirectToRoute('cartography');
+        }
+
+        return $this->render('SiteBundle:Cartography:index.html.twig', [
+            'formEvent' => $formEvent->createView(),
+            'formLocation' => $formLocation->createView(),
         ]);
     }
 }
