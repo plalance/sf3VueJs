@@ -1,5 +1,5 @@
 #!/bin/sh
-php ./bin/console doctrine:generate:entities SiteBundle --no-backup
-php ./bin/console doctrine:generate:entities UserBundle --no-backup
+php ./bin/console make:entity SiteBundle --regenerate
+php ./bin/console make:entity UserBundle --regenerate
 
-( exec "./app/sh/migrate.sh" )
+( exec "./app/sh/windows/migrate.sh" )
