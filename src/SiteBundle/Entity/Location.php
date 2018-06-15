@@ -1,8 +1,8 @@
 <?php
 namespace SiteBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Groups;
 
@@ -25,6 +25,28 @@ class Location
      * @Groups({"application", "admin"})
      */
     protected $id;
+
+    /**
+     * @var string
+     *
+     * Nom du lieu (donné par user)
+     * @Serializer\Expose(true)
+     * @Serializer\Type("string")
+     * @ORM\Column(name="name", type="string", nullable=false)
+     * @Groups({"application", "admin"})
+     */
+    protected $name;
+
+    /**
+     * @var string
+     *
+     * Adresse Generique
+     * @Serializer\Expose(true)
+     * @Serializer\Type("string")
+     * @ORM\Column(name="address_name", type="string", nullable=true)
+     * @Groups({"application", "admin"})
+     */
+    protected $addressName;
 
     /**
      * @var float
@@ -75,6 +97,10 @@ class Location
      */
     public function __construct()
     {
+    }
+
+    public function __toString() {
+        return $this->getName();
     }
 
     /**
@@ -179,5 +205,37 @@ class Location
     public function removeEvent(\SiteBundle\Entity\Event $event)
     {
         $this->events->removeElement($event);
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddressName()
+    {
+        return $this->addressName;
+    }
+
+    /**
+     * @param string $addressName
+     */
+    public function setAddressName($addressName)
+    {
+        $this->addressName = $addressName;
     }
 }
