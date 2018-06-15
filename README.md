@@ -27,6 +27,7 @@ La gestion des dépendances front est faite avec NPM (voir package.json)
 |Vue-X||Gestionnaire de State et Commit / Dispatcher d'objets JS dans tous les composants Vue|
 
 ###Compilation et gestion des sources
+
 | Technologie   |     Doc         |     Infos supplémentaires         |
 | :------------ | :-------------: |:-------------: |
 |Brunch (similaire à Webpack)|http://brunch.io/docs/config|  |
