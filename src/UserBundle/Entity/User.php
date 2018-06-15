@@ -4,6 +4,7 @@ namespace UserBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use FOS\UserBundle\Model\GroupableInterface;
 
 /**
  * @ORM\Entity
@@ -71,9 +72,85 @@ class User extends BaseUser
         mail($to,$subject,$message, $headers);
     }
 
-    public function __construct()
+    /**
+     * @return mixed
+     */
+    public function getUsername()
     {
-        parent::__construct();
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * Gets the last login time.
+     *
+     * @return \DateTime|null
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(\DateTime $time = null)
+    {
+        $this->lastLogin = $time;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -91,4 +168,41 @@ class User extends BaseUser
     {
         $this->presentation = $presentation;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRoles()
+    {
+        $roles = $this->roles;
+
+        foreach ($this->getGroups() as $group) {
+            $roles = array_merge($roles, $group->getRoles());
+        }
+
+        // we need to make sure to have at least one role
+        $roles[] = static::ROLE_DEFAULT;
+
+        return array_unique($roles);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = array();
+
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
 }
