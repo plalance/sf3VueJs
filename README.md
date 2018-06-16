@@ -35,6 +35,17 @@ La gestion des dépendances front est faite avec NPM (voir package.json)
 | Vue-Template-Compiler    | | Permet l'écriture / interprétation des composants Vue sous forme de template .vue |
 | Copycat    | PLugin Brunch | Permet de gérer les assets à copier en dur (images / fonts / etc..) dans le répertoire public|
 
+
+###Bundles choisis
+
+| Technologie   |     Doc         |     Infos supplémentaires         |
+| :------------ | :-------------: |:-------------: |
+| DoctrineMigrationsBundle|https://symfony.com/doc/master/bundles/DoctrineMigrationsBundle/index.html|POur ORM Doctrine, udpate de schema de BDD au regard des entités, hgestions des migrations, versioning de migrations...|
+| FOSUserBundle|https://symfony.com/doc/current/bundles/FOSUserBundle/index.html|Gestion des utilisateurs|
+| FOSRestBundle|https://symfony.com/doc/current/bundles/FOSRestBundle/index.html|Implémnetation REST|
+| JMS Serializer|https://jmsyst.com/bundles/JMSSerializerBundle|Serializer pour réponses d'API Json, utilisation de context (différentes vue des entités selon le contexte choisi, la sérialisation est différente)|
+| NelmioApiDocBundle|https://symfony.com/doc/master/bundles/NelmioApiDocBundle/index.html|Génération de Documentation des routes API par annotation|
+
 # Prérequis
 - Avoir un serveur web (LAMP, WAMP, LEMP...)
 - NodeJs / Npm (voir https://nodejs.org/en/download/ pour installatateur windows)
