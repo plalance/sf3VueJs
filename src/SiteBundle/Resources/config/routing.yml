@@ -1,6 +1,8 @@
 homepage:
     path:     /
     defaults: { _controller: SiteBundle:Site:index }
+    options:
+        expose: true
 
 cartography:
     path:     /cartography
