@@ -68,19 +68,21 @@
         }
 
         function setMarkers(map) {
-            axios.get('http://local.sf3.com/app_dev.php/api/location/list').then(function (response) {
+            var url = Routing.generate('api_location_list');
+            var iconUrl = ASSET_DIR+"images/map/";
+
+            axios.get(url).then(function (response) {
                 locations = JSON.parse(response.data);
 
-                var iconUrl = "{{ asset('/images/map/') }}";
-                var iconFile = iconUrl+"default-marker.svg";
+                var iconFile = iconUrl + "default-marker.svg";
 
                 for (var i = 0; i < locations.length; i++) {
                     var loc = locations[i];
                     var latLng = new google.maps.LatLng(loc.latitude, loc.longitude);
-                    if (loc.icon_for_google_map !== null && loc.icon_for_google_map !== ''){
-                        iconFile = iconUrl+loc.icon_for_google_map;
-                    }else {
-                        iconFile = iconUrl+"default-marker.svg";
+                    if (loc.icon_for_google_map !== null && loc.icon_for_google_map !== '') {
+                        iconFile = iconUrl + loc.icon_for_google_map;
+                    } else {
+                        iconFile = iconUrl + "default-marker.svg";
                     }
                     var icon = {
                         url: iconFile,
@@ -135,4 +137,5 @@
             map.setCenter(myLatlng2);
         }
     </script>
+
 {% endblock %}
