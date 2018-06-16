@@ -39,9 +39,12 @@
     {# JS ROUTING FOR VUE TEMPLATES #}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-    <script>require('Resources/build/main.js');</script>
-    <script>var axios = require('axios');</script>
-    <script>var $ = require('jquery');</script>
+    <script>
+        require('Resources/build/main.js');
+        var axios = require('axios');
+        var $ = require('jquery');
+        const ASSET_DIR = "{{ asset('') }}";
+    </script>
 {% endblock %}
 </body>
 </html>
