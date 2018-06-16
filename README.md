@@ -35,7 +35,6 @@ La gestion des dépendances front est faite avec NPM (voir package.json)
 | Vue-Template-Compiler    | | Permet l'écriture / interprétation des composants Vue sous forme de template .vue |
 | Copycat    | PLugin Brunch | Permet de gérer les assets à copier en dur (images / fonts / etc..) dans le répertoire public|
 
-
 ###Bundles choisis
 
 | Technologie   |     Doc         |     Infos supplémentaires         |
@@ -45,6 +44,15 @@ La gestion des dépendances front est faite avec NPM (voir package.json)
 | FOSRestBundle|https://symfony.com/doc/current/bundles/FOSRestBundle/index.html|Implémnetation REST|
 | JMS Serializer|https://jmsyst.com/bundles/JMSSerializerBundle|Serializer pour réponses d'API Json, utilisation de context (différentes vue des entités selon le contexte choisi, la sérialisation est différente)|
 | NelmioApiDocBundle|https://symfony.com/doc/master/bundles/NelmioApiDocBundle/index.html|Génération de Documentation des routes API par annotation|
+
+## Environnement
+
+Au vu de certaines dépendances assez récentes, notamment l'arrivée du MakerBundle depuis que la commande doctrine:generate:entities est dépréciée,
+le projet necessite au moins PHP 7.1 sans quoi l'installation via composer ne passera pas.
+
+Le projet fonctionne sur :
+Ubuntu 14.04 LTS / Apache / PHP 7.2
+Windows 10 / Wamp Server 3 (Apache)/ PHP 7.1.18
 
 # Prérequis
 - Avoir un serveur web (LAMP, WAMP, LEMP...)
@@ -105,3 +113,8 @@ ATTENTION : Pour que celà fonctionne sous windows pensez à éditer le fichier 
     -> Effacer le contenu du dossier app/DoctrineMigrations
     -> Vider (DROP TABLE) la table des migration_versions
     -> Relancer le build.sh
+- Lors de la première installation via composer
+    -> Erreur liée à la commande app/console (qui n'existe plus depuis SF3 et est devenu bin/console)
+    -> créer un dossier "var" à la racine du projet
+    -> C'est lié au fait que composer cherche en cache quelle version de SF est installée pour les appels de scripts post-install, or sans le dossier var contenant le cache il ne saura rien faire...
+    --> Relancer composer install
