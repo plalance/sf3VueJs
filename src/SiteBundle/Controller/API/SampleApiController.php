@@ -7,19 +7,28 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SiteBundle\Entity\Sample;
 use SiteBundle\Form\SampleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use UserBundle\Entity\User;
+
+use Swagger\Annotations as SWG;
 
 class SampleApiController extends Controller
 {
     /**
+     * Récupère les informations d'un Sample
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns serialized Sample",
+     * )
+     * @SWG\Parameter(
+     *     name="sample_id",
+     *     in="query",
+     *     type="integer",
+     *     description="sample_id is used by Symfony ParamConverter to query the Sample"
+     * )
+     *
      * @ParamConverter("sample", options={"mapping": {"sample_id": "id"}})
+     * @SWG\Tag(name="Sample")
      */
     public function infosAction(Sample $sample){
         $ctx = SerializationContext::create()->setGroups(array('admin'));
@@ -28,7 +37,19 @@ class SampleApiController extends Controller
     }
 
     /**
+     * Mettre à jou run sample (requete POST)
+     * @SWG\Response(
+     *     response=200,
+     *     description="Update Sample",
+     * )
+     * @SWG\Parameter(
+     *     name="sample_id",
+     *     in="query",
+     *     type="integer",
+     *     description="sample_id is used by Symfony ParamConverter to query the Sample"
+     * )
      * @ParamConverter("sample", options={"mapping": {"sample_id": "id"}})
+     * @SWG\Tag(name="Sample")
      */
     public function updateAction(Request $request, Sample $sample)
     {

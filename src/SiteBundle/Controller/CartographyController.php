@@ -10,8 +10,19 @@ use SiteBundle\Form\LocationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Swagger\Annotations as SWG;
+
 class CartographyController extends Controller
 {
+    /**
+     * Liste de toutes les localisations, avec leurs events associés
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns serialized DoctrineCollection of Locations",
+     * )
+     * @SWG\Tag(name="Localisations")
+     *
+     **/
     public function listAction(){
         $em = $this->getDoctrine()->getManager();
         // Get all locations
@@ -24,6 +35,7 @@ class CartographyController extends Controller
         $serializer = $this->get('jms_serializer');
         return $this->json($serializer->serialize($locations, "json", $ctx));
     }
+
 
     public function indexAction(Request $request)
     {

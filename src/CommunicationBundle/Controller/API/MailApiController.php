@@ -2,22 +2,32 @@
 
 namespace CommunicationBundle\Controller\API;
 
-use JMS\Serializer\SerializationContext;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Swift_Mailer;
-use Swift_SmtpTransport;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use UserBundle\Entity\User;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+
+use Swagger\Annotations as SWG;
 
 class MailApiController extends Controller
 {
 
+    /**
+     * Envoyer un mail via l'API
+     * User doit être loggué sinon retourne une erreur Json
+     * @SWG\Response(
+     *     response=200,
+     *     description="Send Email",
+     * )
+     * @SWG\Parameter(
+     *     name="content",
+     *     in="query",
+     *     type="string",
+     *     description="content (POST) will be used for the body of the mail"
+     * )
+     * @SWG\Tag(name="Mail")
+     */
     public function sendEmailAction(Request $request)
     {
 //        $mailer = $this->get('mailer');
@@ -49,7 +59,7 @@ class MailApiController extends Controller
         if ($this->getUser()) {
 
             $random_hash = md5(date('r', time()));
-            $filePAth = $request->server->get('DOCUMENT_ROOT').'/uploads/bf5.pdf';
+            $filePAth = $request->server->get('DOCUMENT_ROOT') . '/uploads/bf5.pdf';
 
             $template = $this->renderView('CommunicationBundle::mail.html.twig', [
                 'content' => $postContent
@@ -57,14 +67,17 @@ class MailApiController extends Controller
 
             $email = new PHPMailer();
             $email->isHTML(true);
-            $email->From      = 'mol.sf2devveloper@gmail.com';
-            $email->FromName  = 'Message MailApi';
-            $email->Subject   = 'Super Objet';
-            $email->Body      = $template;
-            $email->AddAddress( 'lalance.paul@gmail.com' );
-            $email->AddAttachment( $filePAth , 'bf5.pdf' );
-            $email->Send();
-            
+            $email->From = 'mol.sf2devveloper@gmail.com';
+            $email->FromName = 'Message MailApi';
+            $email->Subject = 'Super Objet';
+            $email->Body = $template;
+            $email->AddAddress('lalance.paul@gmail.com');
+            try {
+                $email->AddAttachment($filePAth, 'bf5.pdf');
+                $email->Send();
+            } catch (Exception $e) {
+            }
+
         } else {
             return $this->json("Vous n'êtes pas connectés, pas d'accès à l'API");
         }
