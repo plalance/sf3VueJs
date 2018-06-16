@@ -3,4 +3,4 @@ api_send_email_content:
     defaults:  { _controller: CommunicationBundle:API\MailApi:sendEmail }
     options:
         expose: true
-#    methods: POST
+    methods: [POST, GET]

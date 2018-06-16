@@ -5,6 +5,7 @@ homepage:
 cartography:
     path:     /cartography
     defaults: { _controller: SiteBundle:Cartography:index }
+    methods: [GET,POST]
 
 homepage_vue:
     path:     /vue/
@@ -20,12 +21,14 @@ create_location:
 api_location_list:
     path:      /api/location/list
     defaults:  { _controller: SiteBundle:Cartography:list }
+    methods: GET
     options:
         expose: true
 
 api_sample:
     path:      /api/sample/{sample_id}
     defaults:  { _controller: SiteBundle:API\SampleApi:infos }
+    methods: GET
     requirements:
         user_id: \d+
     options:
@@ -34,6 +37,7 @@ api_sample:
 api_sample_update:
     path:      /api/sample/update/{sample_id}
     defaults:  { _controller: SiteBundle:API\SampleApi:update }
+    methods: [POST, PUT, PATCH]
     requirements:
         user_id: \d+
     options:
