@@ -3,7 +3,7 @@
 exports.config = {
     paths: {
         'public': 'web',
-        'watched': ['app/Resources/build']
+        'watched': ['app/Resources/']
     },
     conventions: {
         'assets': /^app\/Resources\/assets/
@@ -11,15 +11,16 @@ exports.config = {
     files: {
         javascripts: {
             joinTo: {
-                'assets/app.js': /^app/,
-                'assets/vendor.js': /^(?!app)/
+                'js/app.js': /^app/,
+                'js/vendor.js': /^(?!app)/,
+                'js/jquery.js': '/app/Resources/ove/jquery.slim.js'
             }
         },
         stylesheets: {
-            joinTo: 'assets/app.css'
+            joinTo: 'css/app.css'
         },
         templates: {
-            joinTo: 'assets/app.js',
+            joinTo: 'css/app.js',
         },
     },
     modules: {
@@ -34,24 +35,23 @@ exports.config = {
         babel: {},
         sass: {
             options: {
-                includePaths: [
-                    "node_modules/uikit/src/scss",
-                ]
+                precision: 8
             }
         },
         copycat:{
             // "fonts" : ["bower_components/material-design-iconic-font", "bower_components/font-awesome/fonts"],
             "images": ["./app/Resources/build/images"],
+            "js": ["./app/Resources/build/libraries", './node_modules/jquery/dist/jquery.slim.js'],
             verbose : true, //shows each file that is copied to the destination directory
             onlyChanged: true //only copy a file if it's modified time has changed (only effective when using brunch watch)
         },
         postcss: {
             modules: true,
-        }
+        },
         // Globales se déclarent ic ou dans les fichiers js avec import ... from '...'
-        // globals: {
-        //     // $: "jquery",
-        //     // uikit: "uikit",
-        // }
+        globals: {
+            $: 'jquery',
+            jQuery: 'jquery'
+        }
     },
 };

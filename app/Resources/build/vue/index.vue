@@ -16,15 +16,20 @@
             </div>
         </div>
 
-        <form class="uk-form">
-
-            <fieldset data-uk-margin>
-                <legend>Se connecter en tant que :</legend>
-                <select v-model="userId" @change="usurpateUser()">
-                    <option v-for="user in users" :value="user.id">Se connecter avec {{ user.username }}</option>
-                </select>
-            </fieldset>
-        </form>
+        <div>
+            <select v-model="userId" @change="usurpateUser()">
+                <option v-for="user in users" :value="user.id">Se connecter avec {{ user.username }}</option>
+            </select>
+            <label>Se connecter en tant que :</label>
+        </div>
+        <!--<form class="uk-form">-->
+            <!--<fieldset data-uk-margin>-->
+                <!--<l>Se connecter en tant que :</l>-->
+                <!--<select v-model="userId" @change="usurpateUser()">-->
+                    <!--<option v-for="user in users" :value="user.id">Se connecter avec {{ user.username }}</option>-->
+                <!--</select>-->
+            <!--</fieldset>-->
+        <!--</form>-->
 
         <h1>User connecté :</h1>
         <div id="content" data-uk-height-viewport="expand: true">
@@ -277,8 +282,12 @@
                 sample: {}
             }
         },
-        created() {
+        beforeMount(){
             let datas = this.$root.$data;
+            this.user = datas.user;
+        },
+        created() {
+//            this.user = datas.user;
             this.user = datas.user;
             this.staticFolder = datas.staticFolder;
 
@@ -313,8 +322,6 @@
             window.setTimeout(function () {
                 this.state = false;
             }.bind(this), 500);
-
-
         },
         watch: {
             chartText: function () {

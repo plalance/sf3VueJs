@@ -22,8 +22,11 @@
         {{ form_label(formEvent.name) }}
         {{ form_widget(formEvent.name) }}
 
-        {{ form_label(formEvent.location) }}
-        {{ form_widget(formEvent.location) }}
+
+        <div class="input-field col s12">
+            {{ form_label(formEvent.location) }}
+            {{ form_widget(formEvent.location) }}
+        </div>
 
         {{ form_label(formEvent.icon) }}
         {{ form_widget(formEvent.icon) }}
@@ -69,7 +72,7 @@
 
         function setMarkers(map) {
             const url = Routing.generate('api_location_list');
-            const iconUrl = ASSET_DIR+"images/map/";
+            const iconUrl = ASSET_DIR + "images/map/";
 
             axios.get(url).then(function (response) {
                 locations = JSON.parse(response.data);

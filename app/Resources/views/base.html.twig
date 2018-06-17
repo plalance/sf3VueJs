@@ -4,17 +4,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Base</title>
-    <link rel="stylesheet" href="{{ asset('/assets/app.css') }}"/>
-    <script src="{{ asset("/assets/vendor.js") }}"></script>
-    <script src="{{ asset("/assets/app.js") }}"></script>
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}"/>
+
+    <script src="{{ asset('/js/jquery.slim.js') }}"></script>
+    <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
+
+    <script src="{{ asset("/js/vendor.js") }}"></script>
+    <script src="{{ asset("/js/app.js") }}"></script>
 </head>
 <body>
 
 <header>
     <ul>
         <li><a href="{{ path('homepage') }}">Accueil</a></li>
-        <li><a href="{{ path('homepage_vue') }}">Application Vue Dashboard</a></li>
-        <li><a href="{{ path('cartography') }}">Map d'évènnements</a></li>
+        <li><a href="{{ path('homepage_vue') }}">Dashboard</a></li>
+        <li><a href="{{ path('cartography') }}">Map</a></li>
     </ul>
 </header>
 
@@ -42,7 +46,6 @@
     <script>
         require('Resources/build/main.js');
         var axios = require('axios');
-        var $ = require('jquery');
         const ASSET_DIR = "{{ asset('') }}";
     </script>
 {% endblock %}

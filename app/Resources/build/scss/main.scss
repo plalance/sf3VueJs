@@ -1,14 +1,10 @@
-@import "variables-theme";
-@import "mixins-theme";
-@import "uikit-theme";
-
-@import "dashboard";
-@import "cards";
-@import "loader";
-
+@import "bootstrap/bootstrap";
 @import "quill-editor/quill.snow";
 @import "quill-editor/quill.core";
 @import "quill-editor/quill.bubble";
+
+@import "components/loader";
+@import "dashboard";
 
 body {
   position: relative;
