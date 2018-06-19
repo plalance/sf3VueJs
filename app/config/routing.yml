@@ -4,10 +4,6 @@ app.swagger_ui:
     methods: GET
     defaults: { _controller: nelmio_api_doc.controller.swagger_ui }
 
-communication:
-    resource: "@CommunicationBundle/Resources/config/routing.yml"
-    prefix:   /
-
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
@@ -22,6 +18,10 @@ user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /
 
+communication:
+    resource: "@CommunicationBundle/Resources/config/routing.yml"
+    prefix:   /
+    
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
