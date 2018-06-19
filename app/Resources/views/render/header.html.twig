@@ -1,0 +1,40 @@
+<header>
+    <nav>
+        <ul>
+            <li><a href="{{ path('homepage') }}">Accueil</a></li>
+            <li><a href="{{ path('homepage_vue') }}">Dashboard</a></li>
+            <li><a href="{{ path('cartography') }}">Map</a></li>
+        </ul>
+    </nav>
+
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view" style="background-image: url('{{ asset('images/interface/bg_sidenav.jpg') }}')">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a href="#bg"><img class="circle" src="{{ asset('images/interface/user.svg') }}"></a>
+                    <a href="#name"><span class="white-text name">{{ app.user.username }}</span></a>
+                    <a href="#email"><span class="white-text email">{{ app.user.email }}</span></a>
+                {% else %}
+                    <a href="{{ path('fos_user_security_login') }}"><img class="circle" src="{{ asset('images/interface/user.svg') }}"></a>
+                {% endif %}
+            </div>
+        </li>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <li><a href="{{ path('homepage') }}"><i class="material-icons">home</i>Accueil</a></li>
+            <li><a href="{{ path('homepage_vue') }}"><i class="material-icons">insert_chart</i>Dashboard</a></li>
+            <li><a href="{{ path('homepage') }}"><i class="material-icons">location_on</i>Map d'évènements</a></li>
+            <li><a href="{{ path('fos_user_security_logout') }}">
+                    <i class="material-icons">power_settings_new</i>Se déconnecter
+                </a></li>
+        {% endif %}
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">Mon GitHub</a></li>
+        <li><a class="waves-effect" href="https://github.com/plalance" target="_blank"><i
+                        class="material-icons">code</i>Voir mon GitHub</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+</header>
+
+
