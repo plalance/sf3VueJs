@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Base</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('/css/app.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('/css/main.css') }}"/>
 
     <script src="{{ asset('/js/jquery.slim.js') }}"></script>
     {#<script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>#}
@@ -15,14 +15,7 @@
     <script src="{{ asset("/js/app.js") }}"></script>
 </head>
 <body>
-
-<header>
-    <ul>
-        <li><a href="{{ path('homepage') }}">Accueil</a></li>
-        <li><a href="{{ path('homepage_vue') }}">Dashboard</a></li>
-        <li><a href="{{ path('cartography') }}">Map</a></li>
-    </ul>
-</header>
+{% include ":render:header.html.twig" %}
 
 <div id="loader">
     <div class="lds-roller">

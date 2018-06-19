@@ -3,8 +3,5 @@ $(document).ready(function () {
 
     $('.material-select').formSelect();
 
-    // setup listener for custom event to re-initialize on change
-    $('.material-select').on('contentChanged', function() {
-        $(this).formSelect();
-    });
+    $('.sidenav').sidenav();
 });

@@ -1,14 +1,10 @@
 {% extends "::base.html.twig" %}
 
-{% block body %}
-    {% if app.user is not empty %}
-    {{ dump(app.user) }}
-    {% endif %}
-    <h2>Page twig</h2>
-
-    <div id="map">
-
-    </div>
+{% block bodyContained %}
+    {#{% if app.user is not empty %}#}
+    {#{{ dump(app.user) }}#}
+    {#{% endif %}#}
+    <h1>Accueil</h1>
 
 {% endblock %}
 

@@ -4,8 +4,11 @@
 @import "quill-editor/quill.core";
 @import "quill-editor/quill.bubble";
 
-@import "components/loader";
+/* Pages */
 @import "dashboard";
+
+/* Components */
+@import "components/sidenav";
 
 body {
   position: relative;
