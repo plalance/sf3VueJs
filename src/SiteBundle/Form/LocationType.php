@@ -18,30 +18,37 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 //        $builder->add('id', HiddenType::class, ['mapped' => false]);
-        $builder->add('name', TextType::class, ['mapped' => true]);
-        $builder->add('latitude', HiddenType::class, ['mapped' => true]);
-        $builder->add('longitude', HiddenType::class, ['mapped' => true]);
-        $builder->add('addressName', TextType::class, [
+        $builder->add('name', TextType::class, [
+            'label' => 'Nom du lieu',
             'mapped' => true,
-            'required' => false
-        ]);
-//        $builder->add('iconForGoogleMap', TextType::class, [
-//            'mapped' => true,
-//            'required' => false
-//        ]);
-        $builder->add('iconForGoogleMap', ChoiceType::class, [
-            'choices' => array(
-                'Icone Bleue' => 'default-marker.svg',
-                'Coeur Vert' => 'green-heart-marker.svg'
-            ),
-            'mapped' => true,
-            'required' => false
-        ]);
-
-        $builder->add('save', SubmitType::class, array(
-            'label' => 'Sauvegarder',
-            'attr' => ['class' => ''],
-        ));
+            'required' => true
+        ])
+            ->add('latitude', NumberType::class, [
+                'label' => 'Latitude',
+                'mapped' => true
+            ])
+            ->add('longitude', NumberType::class, [
+                'label' => 'Longitude',
+                'mapped' => true
+            ])
+            ->add('addressName', TextType::class, [
+                'label' => 'Addresse',
+                'mapped' => true,
+                'required' => false
+            ])
+            ->add('iconForGoogleMap', ChoiceType::class, [
+                'label' => 'Icone sur la carte',
+                'choices' => [
+                    'Icone Bleue' => 'default-marker.svg',
+                    'Coeur Vert' => 'green-heart-marker.svg'
+                ],
+                'mapped' => true,
+                'required' => false
+            ])
+            ->add('save', SubmitType::class, array(
+                'label' => 'Sauvegarder',
+                'attr' => ['class' => ''],
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

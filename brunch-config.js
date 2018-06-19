@@ -13,11 +13,12 @@ exports.config = {
             joinTo: {
                 'js/app.js': /^app/,
                 'js/vendor.js': /^(?!app)/,
-                'js/jquery.js': '/app/Resources/ove/jquery.slim.js'
             }
         },
         stylesheets: {
-            joinTo: 'css/app.css'
+            joinTo: {
+                'css/main.css' : 'app/Resources/build/scss/main.scss'
+            }
         },
         templates: {
             joinTo: 'css/app.js',
@@ -40,7 +41,7 @@ exports.config = {
         },
         copycat:{
             "images": ["./app/Resources/build/images"],
-            "js": ["./app/Resources/build/libraries", './node_modules/jquery/dist/jquery.slim.js'],
+            "js": ['./node_modules/jquery/dist/jquery.slim.js'],
             verbose : false, //shows each file that is copied to the destination directory
             onlyChanged: true //only copy a file if it's modified time has changed (only effective when using brunch watch)
         },
