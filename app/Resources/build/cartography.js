@@ -93,6 +93,10 @@ function placeSearchResult() {
     $('#location_latitude').val(lat);
     $('#location_longitude').val(lng);
     $('#location_addressName').val(addressName);
+
+
+    M.updateTextFields();
+
     // Centrer la map sur ce que cherche l'utilisateur
     var myLatlng2 = new google.maps.LatLng(
         lat,
