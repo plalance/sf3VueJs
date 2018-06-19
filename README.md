@@ -40,6 +40,7 @@ La gestion des dépendances front est faite avec NPM (voir package.json)
 #### Commandes Brunch
 
 Pour builder les assets (compiler tous les .js et créer les require.register) + les déposer dans le répertoire public (voir configuration dans le fichier brunch-config.js)
+
         brunch build [ brunch b ]
 <br>
 Pour watcher (Recompilation dès qu'un .scss / .js / fichier image source est modifié + rechargement des navigateurs connectés)  
