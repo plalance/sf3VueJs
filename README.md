@@ -15,7 +15,8 @@ Fonctionne sous unix (si serveur mail configuré) sinon sous wamp -> Utilisation
 
 La gestion des dépendances front est faite avec NPM (voir package.json)
 
-###Les technologies et outils
+### Les technologies et outils
+
 
 | Technologie   |     Doc         |     Infos supplémentaires         |
 | :------------ | :-------------: |:-------------: |
@@ -26,7 +27,8 @@ La gestion des dépendances front est faite avec NPM (voir package.json)
 |Lodash         |https://lodash.com/|Librairie facilitant la manipulation / opérations sur les objets javascripts|
 |Vue-X||Gestionnaire de State et Commit / Dispatcher d'objets JS dans tous les composants Vue|
 
-###Compilation et gestion des sources
+### Compilation et gestion des sources
+
 
 | Technologie   |     Doc         |     Infos supplémentaires         |
 | :------------ | :-------------: |:-------------: |
@@ -35,7 +37,7 @@ La gestion des dépendances front est faite avec NPM (voir package.json)
 | Vue-Template-Compiler    | | Permet l'écriture / interprétation des composants Vue sous forme de template .vue |
 | Copycat    | PLugin Brunch | Permet de gérer les assets à copier en dur (images / fonts / etc..) dans le répertoire public|
 
-####Commandes Brunch
+#### Commandes Brunch
 
 Pour builder les assets (compiler tous les .js et créer les require.register) + les déposer dans le répertoire public (voir configuration dans le fichier brunch-config.js)
         brunch build [ brunch b ]
@@ -48,7 +50,7 @@ Pour compiler les assets (.js + .scss -> .css -> .css) en version optimisé (min
 
         brunch build --production
 
-###Bundles choisis
+### Bundles choisis
 
 | Technologie   |     Doc         |     Infos supplémentaires         |
 | :------------ | :-------------: |:-------------: |
