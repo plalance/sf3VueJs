@@ -61,107 +61,108 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd4Poy6TmjkrC8AHTeL7XX6aLS4Pyz45I&libraries=geometry,places&callback=initMap">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd4Poy6TmjkrC8AHTeL7XX6aLS4Pyz45I&libraries=geometry,places">
     </script>
 
-    <script>
-        var map, infowindow, locations, autocomplete;
+    <script>require("Resources/build/cartography.js")</script>
 
-        function initMap() {
-            settings = {
-                lat: 47.6425875,
-                lng: 6.844186600000057,
-                zoom: 8
-            };
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: settings.zoom,
-                center: {lat: settings.lat, lng: settings.lng}
-            });
-            infowindow = new google.maps.InfoWindow({
-                content: "No data available"
-            });
-            setMarkers(map);
+    {#<script>#}
+        {#var map, infowindow, locations, autocomplete;#}
 
-            var options = {
-                types: ['geocode']
-            };
-            autocomplete = new google.maps.places.Autocomplete(
-                (document.getElementById('autocomplete')),
-                options
-            );
-            autocomplete.addListener('place_changed', placeSearchResult);
-        }
+        {#function initMap() {#}
+            {#settings = {#}
+                {#lat: 47.6425875,#}
+                {#lng: 6.844186600000057,#}
+                {#zoom: 8#}
+            {#};#}
+            {#map = new google.maps.Map(document.getElementById('map'), {#}
+                {#zoom: settings.zoom,#}
+                {#center: {lat: settings.lat, lng: settings.lng}#}
+            {#});#}
+            {#infowindow = new google.maps.InfoWindow({#}
+                {#content: "No data available"#}
+            {#});#}
+            {#setMarkers(map);#}
 
-        function setMarkers(map) {
-            const url = Routing.generate('api_location_list');
-            const iconUrl = ASSET_DIR + "images/map/";
+            {#var options = {#}
+                {#types: ['geocode']#}
+            {#};#}
+            {#autocomplete = new google.maps.places.Autocomplete(#}
+                {#(document.getElementById('autocomplete')),#}
+                {#options#}
+            {#);#}
+            {#autocomplete.addListener('place_changed', placeSearchResult);#}
+        {#}#}
 
-            axios.get(url).then(function (response) {
-                locations = JSON.parse(response.data);
+        {#function setMarkers(map) {#}
+            {#const url = Routing.generate('api_location_list');#}
+            {#const iconUrl = ASSET_DIR + "images/map/";#}
 
-                var iconFile = iconUrl + "default-marker.svg";
+            {#axios.get(url).then(function (response) {#}
+                {#locations = JSON.parse(response.data);#}
 
-                for (var i = 0; i < locations.length; i++) {
-                    var loc = locations[i];
-                    var latLng = new google.maps.LatLng(loc.latitude, loc.longitude);
-                    if (loc.icon_for_google_map !== null && loc.icon_for_google_map !== '') {
-                        iconFile = iconUrl + loc.icon_for_google_map;
-                    } else {
-                        iconFile = iconUrl + "default-marker.svg";
-                    }
-                    var icon = {
-                        url: iconFile,
-                        scaledSize: new google.maps.Size(30, 30),
-                    };
-                    var marker = new google.maps.Marker({
-                        position: latLng,
-                        map: map,
-                        id_location: loc.id,
-                        content: loc.events,
-                        icon: icon,
-                        scaledSize: new google.maps.Size(50, 50)
-                    });
-                    google.maps.event.addListener(marker, 'click', showInfoWindow);
-                }
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
+                {#var iconFile = iconUrl + "default-marker.svg";#}
 
-        function showInfoWindow() {
-            // this refers to marker instance
-            var div = document.createElement('div');
-            var ul = document.createElement('ul');
-            div.appendChild(ul);
-            for (var i = 0; i < this.content.length; i++) {
-                var li = document.createElement('li');
-                li.innerHTML = this.content[i].name;
-                ul.append(li)
-            }
+                {#for (var i = 0; i < locations.length; i++) {#}
+                    {#var loc = locations[i];#}
+                    {#var latLng = new google.maps.LatLng(loc.latitude, loc.longitude);#}
+                    {#if (loc.icon_for_google_map !== null && loc.icon_for_google_map !== '') {#}
+                        {#iconFile = iconUrl + loc.icon_for_google_map;#}
+                    {#} else {#}
+                        {#iconFile = iconUrl + "default-marker.svg";#}
+                    {#}#}
+                    {#var icon = {#}
+                        {#url: iconFile,#}
+                        {#scaledSize: new google.maps.Size(30, 30),#}
+                    {#};#}
+                    {#var marker = new google.maps.Marker({#}
+                        {#position: latLng,#}
+                        {#map: map,#}
+                        {#id_location: loc.id,#}
+                        {#content: loc.events,#}
+                        {#icon: icon,#}
+                        {#scaledSize: new google.maps.Size(50, 50)#}
+                    {#});#}
+                    {#google.maps.event.addListener(marker, 'click', showInfoWindow);#}
+                {#}#}
+            {#}).catch(function (error) {#}
+                {#console.log(error);#}
+            {#});#}
+        {#}#}
 
-            // var html = "<h3>"+this.content[0].name+"</h3>";
-            infowindow.setContent(div);
-            infowindow.open(map, this);
-        }
+        {#function showInfoWindow() {#}
+            {#// this refers to marker instance#}
+            {#var div = document.createElement('div');#}
+            {#var ul = document.createElement('ul');#}
+            {#div.appendChild(ul);#}
+            {#for (var i = 0; i < this.content.length; i++) {#}
+                {#var li = document.createElement('li');#}
+                {#li.innerHTML = this.content[i].name;#}
+                {#ul.append(li)#}
+            {#}#}
 
-        function placeSearchResult() {
-            // Get the place details from the autocomplete object.
-            var place = autocomplete.getPlace();
-            var lat = place.geometry.location.lat();
-            var lng = place.geometry.location.lng();
-            var addressName = place.formatted_address;
-            // Remplir le formulaire avec les infos (lat et lng sont cachés de l'utilisateur)
-            $('#location_latitude').val(lat);
-            $('#location_longitude').val(lng);
-            $('#location_addressName').val(addressName);
-            // Centrer la map sur ce que cherche l'utilisateur
-            var myLatlng2 = new google.maps.LatLng(
-                lat,
-                lng
-            );
-            map.setCenter(myLatlng2);
-        }
-    </script>
+            {#// var html = "<h3>"+this.content[0].name+"</h3>";#}
+            {#infowindow.setContent(div);#}
+            {#infowindow.open(map, this);#}
+        {#}#}
+
+        {#function placeSearchResult() {#}
+            {#// Get the place details from the autocomplete object.#}
+            {#var place = autocomplete.getPlace();#}
+            {#var lat = place.geometry.location.lat();#}
+            {#var lng = place.geometry.location.lng();#}
+            {#var addressName = place.formatted_address;#}
+            {#// Remplir le formulaire avec les infos (lat et lng sont cachés de l'utilisateur)#}
+            {#$('#location_latitude').val(lat);#}
+            {#$('#location_longitude').val(lng);#}
+            {#$('#location_addressName').val(addressName);#}
+            {#// Centrer la map sur ce que cherche l'utilisateur#}
+            {#var myLatlng2 = new google.maps.LatLng(#}
+                {#lat,#}
+                {#lng#}
+            {#);#}
+            {#map.setCenter(myLatlng2);#}
+        {#}#}
+    {#</script>#}
 
 {% endblock %}
