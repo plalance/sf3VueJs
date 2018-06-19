@@ -35,6 +35,19 @@ La gestion des dépendances front est faite avec NPM (voir package.json)
 | Vue-Template-Compiler    | | Permet l'écriture / interprétation des composants Vue sous forme de template .vue |
 | Copycat    | PLugin Brunch | Permet de gérer les assets à copier en dur (images / fonts / etc..) dans le répertoire public|
 
+####Commandes Brunch
+
+Pour builder les assets (compiler tous les .js et créer les require.register) + les déposer dans le répertoire public (voir configuration dans le fichier brunch-config.js)
+        brunch build [ brunch b ]
+<br>
+Pour watcher (Recompilation dès qu'un .scss / .js / fichier image source est modifié + rechargement des navigateurs connectés)  
+
+        brunch watch [ brunch w ]
+<br>
+Pour compiler les assets (.js + .scss -> .css -> .css) en version optimisé (minifiés)
+
+        brunch build --production
+
 ###Bundles choisis
 
 | Technologie   |     Doc         |     Infos supplémentaires         |
@@ -90,8 +103,10 @@ Emplacement du fichier de configuration localhost sur wamp (windows):
             DocumentRoot c:/wamp64/www/votredomaine/web
                 <Directory  "c:/wamp64/www/exxemple/web">
                     Options +Indexes +Includes +FollowSymLinks +MultiViews
-                    AllowOverride All
-                    Require local
+                    		AllowOverride All
+                            Order Allow,Deny
+                            Allow from All
+                            DirectoryIndex app.php
                 </Directory>
         </VirtualHost>
 ATTENTION : Pour que celà fonctionne sous windows pensez à éditer le fichier hosts pour prendre en compte le nom de domaine local.
@@ -108,13 +123,18 @@ ATTENTION : Pour que celà fonctionne sous windows pensez à éditer le fichier 
 - No route found (page) : 
     - Vider le cache : php bin/console cache:clear --env=dev OU php bin/console cache:clear --env=prod selon la situtation OU rm rf var/cache/* (méthode bourrin)
 - Erreurs pendant la génération de la BDD avec build.sh :
-    - Soucis liés aux contraintes de clés, aux tables qui existent déjà en base, à l'ajout de contrainte d'intégrité impossible
-    -> Vérifier vos entités... sinon
-    -> Effacer le contenu du dossier app/DoctrineMigrations
-    -> Vider (DROP TABLE) la table des migration_versions
-    -> Relancer le build.sh
+    -> Soucis liés aux contraintes de clés, aux tables qui existent déjà en base, à l'ajout de contrainte d'intégrité impossible
+    - Vérifier vos entités... sinon
+    - Effacer le contenu du dossier app/DoctrineMigrations
+    - Vider (DROP TABLE) la table des migration_versions
+    - Relancer le build.sh
 - Lors de la première installation via composer
     -> Erreur liée à la commande app/console (qui n'existe plus depuis SF3 et est devenu bin/console)
-    -> créer un dossier "var" à la racine du projet
-    -> C'est lié au fait que composer cherche en cache quelle version de SF est installée pour les appels de scripts post-install, or sans le dossier var contenant le cache il ne saura rien faire...
-    --> Relancer composer install
+    - créer un dossier "var" à la racine du projet
+    - C'est lié au fait que composer cherche en cache quelle version de SF est installée pour les appels de scripts post-install, or sans le dossier var contenant le cache il ne saura rien faire...
+    - Relancer composer install
+- En cas de 404 not found sur une page
+    - Vérifier le routing
+    - Vider le cache
+    - tester en app_dev.php ET en app.php
+    - Vérifier le Vhost :la propriété AllowOverride doit être à All pour permettre la réécriture des chemins
