@@ -34,8 +34,7 @@ class UserApiController extends Controller
     public function infosAction(Request $request, User $user)
     {
         $serializer = $this->get('jms_serializer');
-        $ctx = SerializationContext::create()->setGroups(array('application'));
-        return $this->json($serializer->serialize($user, "json", $ctx));
+        return $this->json($serializer->serialize($user, "json"));
     }
 
     /**
@@ -99,8 +98,7 @@ class UserApiController extends Controller
         $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
         $serializer = $this->get('jms_serializer');
-        $ctx = SerializationContext::create()->setGroups(array('application'));
-        return $this->json($serializer->serialize($user, "json", $ctx));
+        return $this->json($serializer->serialize($user, "json"));
     }
 
     public function logoutAction(Request $request)
@@ -133,7 +131,7 @@ class UserApiController extends Controller
      *     response=200,
      *     description=""
      * )
-     * @SWG\Tag(name="User"
+     * @SWG\Tag(name="User")
      * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
      */
     public function updateAction(Request $request, User $user)
