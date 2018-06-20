@@ -1,5 +1,5 @@
 # Routing pour accéder à la doc
-app.swagger_ui:
+documentation:
     path: /api/documentation
     methods: GET
     defaults: { _controller: nelmio_api_doc.controller.swagger_ui }
