@@ -1,0 +1,11 @@
+#map{
+  width: 100%;
+  height: 450px;
+}
+
+.infowindow{
+  &__title{
+    font-weight: bold;
+    color: #26a69a;
+  }
+}

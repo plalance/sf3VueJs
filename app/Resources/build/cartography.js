@@ -57,6 +57,7 @@ function setMarkers(map) {
                 map: map,
                 id_location: loc.id,
                 content: loc.events,
+                name: loc.name,
                 icon: icon,
                 scaledSize: new google.maps.Size(50, 50)
             });
@@ -70,12 +71,18 @@ function setMarkers(map) {
 function showInfoWindow() {
     // this refers to marker instance
     var div = document.createElement('div');
+    div.classList.add('infowindow');
     var ul = document.createElement('ul');
     div.appendChild(ul);
+    var li = document.createElement('li');
+    li.classList.add('infowindow__title');
+    li.innerHTML = this.name;
+    ul.append(li);
+
     for (var i = 0; i < this.content.length; i++) {
         var li = document.createElement('li');
         li.innerHTML = this.content[i].name;
-        ul.append(li)
+        ul.append(li);
     }
 
     // var html = "<h3>"+this.content[0].name+"</h3>";

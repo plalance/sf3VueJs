@@ -9,12 +9,8 @@
 
 /* Components */
 @import "components/sidenav";
+@import "components/map";
 
 body {
   position: relative;
-}
-
-#map{
-  width: 100%;
-  height: 450px;
 }
