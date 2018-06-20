@@ -3,6 +3,7 @@
 namespace SiteBundle\Controller;
 
 use JMS\Serializer\SerializationContext;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SiteBundle\Entity\Event;
 use SiteBundle\Entity\Location;
 use SiteBundle\Form\EventType;
@@ -30,5 +31,56 @@ class LocationController extends Controller
             $em->flush();
             return $this->redirectToRoute('cartography');
         }
+    }
+
+    /**
+     * Page d'une location
+     * @ParamConverter("location", options={"mapping": {"location_id": "id"}})
+     */
+    public function editAction(Request $request, Location $location)
+    {
+        $form = $this->createForm(LocationType::class, $location, array());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $location->setName($form->get('name')->getData());
+            $location->setLatitude($form->get('latitude')->getData());
+            $location->setLongitude($form->get('longitude')->getData());
+            $location->setIconForGoogleMap($form->get('iconForGoogleMap')->getData());
+            $location->setAddressName($form->get('addressName')->getData());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->merge($location);
+            $em->flush();
+            return $this->redirectToRoute('cartography');
+        }
+        return $this->render('SiteBundle:Cartography:location_edit.html.twig', [
+            'form' => $form->createView(),
+            'object' => $location,
+        ]);
+    }
+
+    /**
+     * Suppression d'une location
+     * @ParamConverter("location", options={"mapping": {"location_id": "id"}})
+     */
+    public function removeAction(Request $request, Location $location)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($location);
+        $em->flush();
+        return $this->redirectToRoute('list_location');
+    }
+
+    public function listAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        // Get all locations
+        $locations = $this->getDoctrine()
+            ->getRepository('SiteBundle:Location')
+            ->findAll();
+        return $this->render('SiteBundle:Cartography:location_list.html.twig', [
+            'locations' => $locations,
+        ]);
     }
 }

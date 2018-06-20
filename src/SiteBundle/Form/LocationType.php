@@ -24,10 +24,12 @@ class LocationType extends AbstractType
             'required' => true
         ])
             ->add('latitude', NumberType::class, [
+                'scale' => 13,
                 'label' => 'Latitude',
                 'mapped' => true
             ])
             ->add('longitude', NumberType::class, [
+                'scale' => 13,
                 'label' => 'Longitude',
                 'mapped' => true
             ])

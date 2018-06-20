@@ -32,8 +32,7 @@ class Event
      * @Serializer\Expose(true)
      *
      * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Location", inversedBy="events")
-     * @ORM\JoinColumn(name="id_location", referencedColumnName="id_location")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(name="id_location", referencedColumnName="id_location", nullable=true, onDelete="SET NULL")
      * @Groups({"application", "admin"})
      */
     private $location;

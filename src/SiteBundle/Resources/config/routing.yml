@@ -28,9 +28,27 @@ create_location:
     options:
         expose: false
 
+edit_location:
+    path:     /location/edit/{location_id}
+    defaults: { _controller: SiteBundle:Location:edit }
+    options:
+        expose: true
+
+remove_location:
+    path:     /location/remove/{location_id}
+    defaults: { _controller: SiteBundle:Location:remove }
+    options:
+        expose: true
+
+list_location:
+    path:      /location/list
+    defaults:  { _controller: SiteBundle:Location:list }
+    options:
+        expose: true
+
 api_location_list:
     path:      /api/location/list
-    defaults:  { _controller: SiteBundle:Cartography:list }
+    defaults:  { _controller: SiteBundle:API\Location:list }
     methods: GET
     options:
         expose: true
