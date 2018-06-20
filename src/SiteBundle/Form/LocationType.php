@@ -41,8 +41,13 @@ class LocationType extends AbstractType
             ->add('iconForGoogleMap', ChoiceType::class, [
                 'label' => 'Icone sur la carte',
                 'choices' => [
-                    'Icone Bleue' => 'default-marker.svg',
-                    'Coeur Vert' => 'green-heart-marker.svg'
+                    'Marqueur bleu (par défaut)' => 'default-marker.svg',
+                    'Coeur Vert' => 'green-heart-marker.svg',
+                    'Restaurant' => 'restaurant-marker.svg',
+                    'Cinéma' => 'cinema-marker.svg',
+                    'Attraction / Manège' => 'roller-coaster-marker.svg',
+                    'Bar' => 'cocktail-marker.svg',
+                    'Maison' => 'home-marker.svg',
                 ],
                 'mapped' => true,
                 'required' => false

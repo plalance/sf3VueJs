@@ -114,7 +114,8 @@ nelmio_api_doc:
     areas:
         path_patterns:
             - ^/api/location
+            - ^/api/event
+            - ^/api/user
             - ^/api/sample
             - ^/api/communication
-            - ^/api/user
     models: { use_jms: false }

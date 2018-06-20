@@ -11,15 +11,11 @@ cartography:
     options:
         expose: false
 
-one_event:
-    path:     /cartography/event/{event_id}
-    defaults: { _controller: SiteBundle:Cartography:event }
-    options:
-        expose: true
-
 homepage_vue:
-    path:     /vue/
+    path:     /dashboard
     defaults: { _controller: SiteBundle:Vue:index }
+
+
 
 create_location:
     path:     /location/create
@@ -47,6 +43,14 @@ list_location:
         expose: true
 
 
+one_event:
+    path:     /cartography/event/{event_id}
+    defaults: { _controller: SiteBundle:Cartography:event }
+    options:
+        expose: true
+
+
+
 api_location_list:
     path:      /api/location/list
     defaults:  { _controller: SiteBundle:API\LocationApi:list }
@@ -57,6 +61,15 @@ api_location_list:
 api_sample:
     path:      /api/sample/{sample_id}
     defaults:  { _controller: SiteBundle:API\SampleApi:infos }
+    methods: GET
+    requirements:
+        user_id: \d+
+    options:
+        expose: true
+
+api_event:
+    path:      /api/event/{event_id}
+    defaults:  { _controller: SiteBundle:API\EventApi:infos }
     methods: GET
     requirements:
         user_id: \d+

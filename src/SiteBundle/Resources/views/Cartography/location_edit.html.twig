@@ -3,9 +3,6 @@
 {% block body %}
     <h2 class="title">Edition de localisation</h2>
 
-
-    {{ dump(object) }}
-
     <div class="container">
         <div class="row">
             <div class="col s12 m6">
@@ -47,9 +44,4 @@
 
 {% block javascripts %}
     {{ parent() }}
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd4Poy6TmjkrC8AHTeL7XX6aLS4Pyz45I&libraries=geometry,places">
-    </script>
-
-    <script>require("Resources/build/cartography.js")</script>
 {% endblock %}
