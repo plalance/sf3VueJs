@@ -100,7 +100,7 @@ jms_serializer:
                 serialize_null: true
                 version: ~
                 attributes: {}
-                groups: ['Default']
+                groups: ['application']
                 enable_max_depth_checks: false
             deserialization:
                 serialize_null: true
@@ -116,5 +116,5 @@ nelmio_api_doc:
             - ^/api/location
             - ^/api/sample
             - ^/api/communication
-            - ^/api/user
+            - ^/api/communication
     models: { use_jms: false }

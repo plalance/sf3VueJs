@@ -34,7 +34,8 @@ class UserApiController extends Controller
     public function infosAction(Request $request, User $user)
     {
         $serializer = $this->get('jms_serializer');
-        return $this->json($serializer->serialize($user, "json"));
+        $ctx = SerializationContext::create()->setGroups(array('application'));
+        return $this->json($serializer->serialize($user, "json", $ctx));
     }
 
     /**
@@ -98,7 +99,8 @@ class UserApiController extends Controller
         $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
         $serializer = $this->get('jms_serializer');
-        return $this->json($serializer->serialize($user, "json"));
+        $ctx = SerializationContext::create()->setGroups(array('application'));
+        return $this->json($serializer->serialize($user, "json", $ctx));
     }
 
     public function logoutAction(Request $request)

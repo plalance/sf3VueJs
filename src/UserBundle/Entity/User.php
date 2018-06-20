@@ -52,6 +52,7 @@ class User extends BaseUser
      * @var bool
      * @Serializer\Expose(true)
      * @Groups({"application", "admin"})
+     * @Groups({"application", "admin"})
      */
     protected $enabled;
 
