@@ -3,6 +3,7 @@
 namespace SiteBundle\Controller;
 
 use JMS\Serializer\SerializationContext;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SiteBundle\Entity\Event;
 use SiteBundle\Entity\Location;
 use SiteBundle\Form\EventType;
@@ -23,7 +24,8 @@ class CartographyController extends Controller
      * @SWG\Tag(name="Localisations")
      *
      **/
-    public function listAction(){
+    public function listAction()
+    {
         $em = $this->getDoctrine()->getManager();
         // Get all locations
         $locations = $this->getDoctrine()
@@ -62,6 +64,17 @@ class CartographyController extends Controller
         return $this->render('SiteBundle:Cartography:index.html.twig', [
             'formEvent' => $formEvent->createView(),
             'formLocation' => $formLocation->createView(),
+        ]);
+    }
+
+    /**
+     * Page d'un Event
+     * @ParamConverter("event", options={"mapping": {"event_id": "id"}})
+     */
+    public function eventAction(Event $event)
+    {
+        return $this->render('SiteBundle:Cartography:event.html.twig', [
+            'event' => $event
         ]);
     }
 }

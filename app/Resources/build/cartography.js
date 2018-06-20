@@ -69,6 +69,7 @@ function setMarkers(map) {
 }
 
 function showInfoWindow() {
+    var evtUrl = Routing.generate('one_event');
     // this refers to marker instance
     var div = document.createElement('div');
     div.classList.add('infowindow');
@@ -77,11 +78,15 @@ function showInfoWindow() {
     var li = document.createElement('li');
     li.classList.add('infowindow__title');
     li.innerHTML = this.name;
-    ul.append(li);
 
+    ul.append(li);
     for (var i = 0; i < this.content.length; i++) {
         var li = document.createElement('li');
-        li.innerHTML = this.content[i].name;
+        var a = document.createElement('a');
+        a.setAttribute('href', evtUrl+'/'+this.content[i].id);
+        a.setAttribute('target', '_blank');
+        li.appendChild(a);
+        a.innerHTML = this.content[i].name;
         ul.append(li);
     }
 

@@ -4,4 +4,8 @@ $(document).ready(function () {
     $('.material-select').formSelect();
 
     $('.sidenav').sidenav();
+
+    $('.sidebar-close').on('click', function () {
+        $('.sidenav').close();
+    })
 });
