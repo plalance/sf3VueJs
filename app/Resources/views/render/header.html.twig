@@ -1,6 +1,7 @@
 <header>
     <nav>
         <ul>
+            <li><a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a></li>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <li><a href="{{ path('homepage') }}">Accueil</a></li>
                 <li><a href="{{ path('homepage_vue') }}">Dashboard</a></li>
@@ -15,6 +16,9 @@
     </nav>
 
     <ul id="slide-out" class="sidenav">
+        <li>
+            <a href="#" data-target="slide-out" class="sidenav-close"><i class="material-icons">close</i></a>
+        </li>
         <li>
             <div class="user-view" style="background-image: url('{{ asset('images/interface/bg_sidenav.jpg') }}')">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -42,7 +46,6 @@
         <li><a class="waves-effect" href="https://github.com/plalance" target="_blank"><i
                         class="material-icons">code</i>Voir mon GitHub</a></li>
     </ul>
-    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 </header>
 
 
