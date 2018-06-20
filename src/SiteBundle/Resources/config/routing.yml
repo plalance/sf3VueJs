@@ -8,6 +8,14 @@ cartography:
     path:     /cartography
     defaults: { _controller: SiteBundle:Cartography:index }
     methods: [GET,POST]
+    options:
+        expose: false
+
+one_event:
+    path:     /cartography/event/{event_id}
+    defaults: { _controller: SiteBundle:Cartography:event }
+    options:
+        expose: true
 
 homepage_vue:
     path:     /vue/
