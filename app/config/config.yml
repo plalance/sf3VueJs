@@ -116,4 +116,5 @@ nelmio_api_doc:
             - ^/api/location
             - ^/api/sample
             - ^/api/communication
+            - ^/api/user
     models: { use_jms: false }

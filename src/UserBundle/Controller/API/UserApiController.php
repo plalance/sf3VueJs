@@ -15,10 +15,20 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use UserBundle\Entity\User;
 use UserBundle\Form\UserType;
+use Swagger\Annotations as SWG;
 
 class UserApiController extends Controller
 {
     /**
+     *
+     * Récupère les informations d'un utilisateur, avec son id en paramètre
+     * @SWG\Response(
+     *     response=200,
+     *     description=""
+     * )
+     * @SWG\Tag(name="User")
+     *
+     *
      * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
      */
     public function infosAction(Request $request, User $user)
@@ -41,6 +51,14 @@ class UserApiController extends Controller
         return $this->json($response);
     }
 
+    /**
+     * Récupère la liste de tous les utilisateurs (contexte application / mdp cachés)
+     * @SWG\Response(
+     *     response=200,
+     *     description=""
+     * )
+     * @SWG\Tag(name="User")
+     */
     public function listAction()
     {
         $users = $this->getDoctrine()
@@ -48,10 +66,20 @@ class UserApiController extends Controller
             ->findBy(array(), array('username' => 'desc'));
 
         $serializer = $this->get('jms_serializer');
-        return $this->json($serializer->serialize($users, "json"));
+        $ctx = SerializationContext::create()->setGroups(array('application'));
+        return $this->json($serializer->serialize($users, "json", $ctx));
     }
 
     /**
+     * Usurper (se connecter en tant que) l'utilisateur,
+     * La session est refaite avec cet utilisateur
+     * paramètre : user_id
+     * @SWG\Response(
+     *     response=200,
+     *     description=""
+     * )
+     * @SWG\Tag(name="User")
+     *
      * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
      */
     public function usurpateAction(Request $request, User $user)
@@ -97,6 +125,13 @@ class UserApiController extends Controller
     }
 
     /**
+     * Mettre à jour l'utilisateur (lui envoyer au format Json / Objet Javascript converti)
+     * paramètre : user_id
+     * @SWG\Response(
+     *     response=200,
+     *     description=""
+     * )
+     * @SWG\Tag(name="User"
      * @ParamConverter("user", options={"mapping": {"user_id": "id"}})
      */
     public function updateAction(Request $request, User $user)

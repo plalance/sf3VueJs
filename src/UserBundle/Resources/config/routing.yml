@@ -15,6 +15,7 @@ api_user_logout:
 api_user_usurpate:
     path:      /api/user/{user_id}/usurpate
     defaults:  { _controller: UserBundle:API\UserApi:usurpate }
+    methods: GET
     requirements:
         user_id: \d+
     options:
@@ -29,14 +30,16 @@ api_profile_notify:
         expose: true
 
 api_users_list:
-    path:      /api/users/list
+    path:      /api/user/list
     defaults:  { _controller: UserBundle:API\UserApi:list }
+    methods: GET
     options:
         expose: true
 
 api_user_update:
     path:      /api/user/{user_id}/update
     defaults:  { _controller: UserBundle:API\UserApi:update }
+    methods: [GET,PU,POST]
     requirements:
         user_id: \d+
     options:

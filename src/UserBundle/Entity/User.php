@@ -5,6 +5,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use FOS\UserBundle\Model\GroupableInterface;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -18,12 +19,14 @@ class User extends BaseUser
      * @Serializer\Type("string")
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"application", "admin"})
      */
     protected $id;
 
     /**
      * @Serializer\Expose(true)
      * @Serializer\Type("string")
+     * @Groups({"application", "admin"})
      */
     protected $username;
 
@@ -32,6 +35,7 @@ class User extends BaseUser
      *
      * @Serializer\Expose(true)
      * @Serializer\Type("string")
+     * @Groups({"application", "admin"})
      */
     protected $email;
 
@@ -40,24 +44,28 @@ class User extends BaseUser
      * @Serializer\Expose(true)
      * @Serializer\Type("string")
      * @ORM\Column(name="presentation", type="string", nullable=true)
+     * @Groups({"application", "admin"})
      */
     protected $presentation;
 
     /**
      * @var bool
      * @Serializer\Expose(true)
+     * @Groups({"application", "admin"})
      */
     protected $enabled;
 
     /**
      * @var \DateTime|null
      * @Serializer\Expose(true)
+     * @Groups({"application", "admin"})
      */
     protected $lastLogin;
 
     /**
      * @var array
      * @Serializer\Expose(true)
+     * @Groups({"application", "admin"})
      */
     protected $roles;
 
