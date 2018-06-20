@@ -25,7 +25,6 @@ class LocationApiController extends Controller
      **/
     public function listAction()
     {
-        $em = $this->getDoctrine()->getManager();
         // Get all locations
         $locations = $this->getDoctrine()
             ->getRepository('SiteBundle:Location')
