@@ -1,0 +1,7 @@
+.table{
+  &.highlight{
+    tbody > tr:hover{
+      background-color: #89dfe0;
+    }
+  }
+}
