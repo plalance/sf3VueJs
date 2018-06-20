@@ -46,9 +46,10 @@ list_location:
     options:
         expose: true
 
+
 api_location_list:
     path:      /api/location/list
-    defaults:  { _controller: SiteBundle:API\Location:list }
+    defaults:  { _controller: SiteBundle:API\LocationApi:list }
     methods: GET
     options:
         expose: true
