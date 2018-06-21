@@ -33,7 +33,7 @@ $(document).ready(function () {
 
 function setMarkers(map) {
     const url = Routing.generate('api_location_list');
-    const iconUrl = ASSET_DIR + "images/map/";
+    const iconUrl = globals.ASSET_DIR + "images/map/";
 
     axios.get(url).then(function (response) {
         locations = JSON.parse(response.data);
