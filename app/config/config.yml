@@ -40,6 +40,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        mapbox_api_access_token: "%mapbox_api_access_token%"
 
 # Doctrine Configuration
 doctrine:

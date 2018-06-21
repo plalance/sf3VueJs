@@ -45,7 +45,14 @@
     <script>
         require('Resources/build/main.js');
         var axios = require('axios');
-        const ASSET_DIR = "{{ asset('') }}";
+        const globals = {
+            ASSET_DIR: "{{ asset('/') }}",
+            IMG_DIR: "{{ asset('/images/') }}",
+            LEAFLET_IMAGE_PATH: "{{ asset('/images/map/leaflet/') }}",
+            MAPBOX_API_TOKEN: "{{ mapbox_api_access_token }}"
+        };
+        console.log('Base : Constantes JS : ');
+        console.log(globals);
     </script>
 {% endblock %}
 </body>
