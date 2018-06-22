@@ -1,4 +1,4 @@
-var mymap, locations;
+var mymap, locations, autocomplete, markerHere;
 
 var iconUrl = globals.IMG_DIR + '/map/';
 
@@ -18,23 +18,29 @@ var pos = {
     lng: 6.844186600000057
 };
 
+autocomplete = new google.maps.places.Autocomplete(
+    (document.getElementById('autocomplete')),
+    {
+        types: ['geocode']
+    }
+);
+autocomplete.addListener('place_changed', placeSearchResult);
+
 // Try HTML5 geolocation.
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
         pos.lat = position.coords.latitude;
         pos.lng = position.coords.longitude;
-
-        console.log(pos);
         // Add marker
-        var marker = L.marker([pos.lat, pos.lng],
+        markerHere = L.marker([pos.lat, pos.lng],
             {
                 icon: new defaultIcon({iconUrl: iconUrl + "default-marker.svg"})
             }
         );
         var popupHere = L.popup();
         popupHere.setContent("<p class='infowindow__title'>Vous êtes ici !</p>");
-        marker.bindPopup(popupHere);
-        marker.addTo(mymap);
+        markerHere.bindPopup(popupHere);
+        markerHere.addTo(mymap);
         mymap.panTo(new L.LatLng(pos.lat, pos.lng));
     }, function () {
     });
@@ -108,4 +114,24 @@ function generateInfoWindows(marker, loc) {
 
     marker.bindPopup(popup);
     marker.addTo(mymap);
+}
+
+function placeSearchResult() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    var lat = place.geometry.location.lat();
+    var lng = place.geometry.location.lng();
+    var addressName = place.formatted_address;
+    // Remplir le formulaire avec les infos (lat et lng sont cachés de l'utilisateur)
+    $('#location_latitude').val(lat);
+    $('#location_longitude').val(lng);
+    $('#location_addressName').val(addressName);
+
+
+    M.updateTextFields();
+
+    var newLatLng = new L.LatLng(lat, lng);
+    markerHere.setLatLng(newLatLng);
+
+    mymap.panTo(new L.LatLng(lat, lng));
 }
