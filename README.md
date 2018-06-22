@@ -5,6 +5,7 @@
 
 # Updates
 22/06/18
+
 Au regard du choix de google de passer en modèle économique payant au delà de la limite des 200$ alloués mensuellement <br>
 J'ai adapté le code en 2 scripts pour pouvoir charger au choix la cartographie (avec icones custom etc..) avec :
 - L'API google map api v3 (il faudra alors insérer son token dans le parameters.yml)
