@@ -15,7 +15,13 @@
     <script src="{{ asset("/js/app.js") }}"></script>
 </head>
 <body>
-{% include ":render:header.html.twig" %}
+{% block header %}
+    {% embed ":render:header.html.twig" %}
+        {% block menuExtension %}
+            toto
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
 
 <div id="loader">
     <div class="lds-roller">
