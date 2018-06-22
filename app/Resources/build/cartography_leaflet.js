@@ -26,20 +26,21 @@ if (navigator.geolocation) {
 
         console.log(pos);
         // Add marker
-        var marker = L.marker([loc.latitude, loc.longitude],
+        var marker = L.marker([pos.lat, pos.lng],
             {
                 icon: new defaultIcon({iconUrl: iconUrl + "default-marker.svg"})
             }
         );
         var popupHere = L.popup();
-        popup.setContent("<p class='infowindow__title'>Vous êtes ici !</p>");
+        popupHere.setContent("<p class='infowindow__title'>Vous êtes ici !</p>");
         marker.bindPopup(popupHere);
         marker.addTo(mymap);
-
+        mymap.panTo(new L.LatLng(pos.lat, pos.lng));
     }, function () {
     });
 } else {
     // Browser doesn't support Geolocation
+    console.log("Browser doesn't support Geolocation or it has been disabled by user / addblock");
 }
 
 mymap = L.map('map').setView([pos.lat, pos.lng], 12);
