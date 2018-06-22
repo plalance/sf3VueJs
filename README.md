@@ -3,6 +3,22 @@
  - Une partie présentation "classique", (MVC Entity / Controller / Templates Twig)
  - Une cartographie (google map) de mes voyages... (Entités location)
 
+# Updates
+22/06/18
+Au regard du choix de google de passer en modèle économique payant au delà de la limite des 200$ alloués mensuellement <br>
+J'ai adapté le code en 2 scripts pour pouvoir charger au choix la cartographie (avec icones custom etc..) avec :
+- L'API google map api v3 (il faudra alors insérer son token dans le parameters.yml)
+- L'API Open Source gratuite de leaflet.js associée au fournisseur de cartographie mapbox (il faudra saisir son token access mapbox dans le parameters)
+Sur la page cartographie, il est possible de switcher de carte avec juste la paramètre ?map=google si on souhaite utiliser google map.
+Par défaut, leaflet sera utilisé.
+
+15/06/18
+- La documentation de l'API rest est générée à la volée selon les annotations de méthodes, grâce au bundle NelmioApiDocBundle (<a href="https://symfony.com/doc/master/bundles/NelmioApiDocBundle/index.html">Documentation</a>)
+
+14/06/18
+- Passage de doctrine à Maker bundle pour la génération de structure de BDD
+- Update des dépendances, passage à Php 7.1
+
 # Technologies
 La gestion des utilisateurs est faite avec le bundle FOSUserBundle, adapté au projet.
 Gestion de la sérialisation des entités / response avec JMSSerializer (https://jmsyst.com/bundles/JMSSerializerBundle)
