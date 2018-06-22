@@ -5,11 +5,11 @@ var iconUrl = globals.IMG_DIR + '/map/';
 var defaultIcon = L.Icon.extend({
     options: {
         iconUrl: iconUrl + 'home-marker.svg',
-        iconSize: [38, 95],
-        shadowSize: [50, 64],
-        iconAnchor: [22, 94],
-        shadowAnchor: [4, 62],
-        popupAnchor: [-3, -76]
+        iconSize: [30, 30],
+        // shadowSize: [50, 64],
+        iconAnchor: [15, 30],
+        // shadowAnchor: [4, 62],
+        popupAnchor: [0, -35]
     }
 });
 
