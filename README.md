@@ -129,6 +129,33 @@ Emplacement du fichier de configuration localhost sur wamp (windows):
                             DirectoryIndex app.php
                 </Directory>
         </VirtualHost>
+        
+        # Configuration pour SSL local
+        (auparavant créer un certificat / créer une clé SSH)
+        
+        <VirtualHost *:443>
+        	ServerName sf3
+        	ServerAlias local.sf3.com
+        	DocumentRoot "c:/wamp64/www/sf3VueJs/web"
+        
+        	ErrorLog "c:/wamp64/bin/apache/apache2.4.27/logs/ssl/error.log"
+        	TransferLog "c:/wamp64/bin/apache/apache2.4.27/logs/ssl/access.log"
+        	SSLEngine on
+        	SSLCertificateFile "c:/wamp64/bin/apache/apache2.4.27/conf/cert/certificat.crt"
+        	SSLCertificateKeyFile "c:/wamp64/bin/apache/apache2.4.27/conf/key/private.key"
+        
+        	<Directory  "c:/wamp64/www/sf3VueJs/web">
+        		Options +Indexes +Includes +FollowSymLinks +MultiViews
+        		AllowOverride All
+                Order Allow,Deny
+                Allow from All
+                DirectoryIndex app.php
+                SSLOptions +StdEnvVars
+        	</Directory>
+        
+        CustomLog "c:/wamp64/bin/apache/apache2.4.27/logs/ssl/ssl_request.log" common
+        
+        </VirtualHost>
 ATTENTION : Pour que celà fonctionne sous windows pensez à éditer le fichier hosts pour prendre en compte le nom de domaine local.
 
         127.0.0.1 local.votredomaine.fr
