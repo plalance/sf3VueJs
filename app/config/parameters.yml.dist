@@ -22,3 +22,4 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     mapbox_api_access_token: ~
+    google_api_key: ~
