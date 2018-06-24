@@ -43,6 +43,8 @@ twig:
     globals:
         mapbox_api_access_token: "%mapbox_api_access_token%"
         google_api_key: "%google_api_key%"
+        facebook_app_id: "%facebook_app_id%"
+
 
 # Doctrine Configuration
 doctrine:
