@@ -4,6 +4,13 @@
  - Une cartographie (google map) de mes voyages... (Entités location)
 
 # Updates
+01/09/18
+
+- Restructuration de la partie Vue Js, ajout de l'utilisation du VueRouter pour le chargement des composants dynamique.
+- Ajout du facebook_app_id au parameters.yml.dist (Auth via facebook Login sur page de connexion)
+- Optimisation de l'implémentation vue (vue template compiler / fichier de routage router.js)
+- Création du futur Bundle de média pour la gestion des uploads. (MediaBundle / Echanges par API)
+
 22/06/18
 
 Au regard du choix de google de passer en modèle économique payant au delà de la limite des 200$ alloués mensuellement <br>
