@@ -104,8 +104,8 @@
 
 <script>
     import Chart from 'chart.js';
-    import Gmap from './components/google-map';
-    import Loader from './components/loader';
+    import Gmap from '../components/google-map';
+    import Loader from '../components/loader';
     // import Quill from 'quill';
     import VueQuillEditor from 'vue-quill-editor';
 

@@ -1,3 +1,7 @@
+media:
+    resource: "@MediaBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # Routing pour accéder à la doc
 documentation:
     path: /api/documentation

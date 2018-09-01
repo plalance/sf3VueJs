@@ -1,16 +1,18 @@
 import Vue from 'vue';
+
+import router from './router'
+
 import axios from "axios";
 import VueAxios from 'vue-axios';
 import VueLodash from 'vue-lodash';
-import Dashboard from './Pages/dashboard.vue';
 import VueQuillEditor from 'vue-quill-editor';
-
-window.Vue = Vue;
 
 Vue.use(VueAxios, axios, VueLodash, VueQuillEditor);
 
-let app = new Vue({
+window.Vue = Vue;
+
+new Vue({
     el: '#app',
-    data: datas,
-    render: h => h(Dashboard),
+    router: router,
+    render: h => h(require('./App.vue'))
 });

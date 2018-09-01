@@ -4,10 +4,19 @@
     {#{% if app.user is not empty %}#}
     {#{{ dump(app.user) }}#}
     {#{% endif %}#}
-    <h1>Accueil</h1>
-
+    <div id="app"></div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}"></script>
+
+    <script>
+        const datas = {
+            user: {% if app.user is not empty %}{{ app.user|serialize('json')|raw }}{% else %}{}{% endif %},
+            staticFolder :"{{ asset("") }}"
+        };
+    </script>
+
+    <script>require('Resources/build/vue/App.js');</script>
 {% endblock %}
